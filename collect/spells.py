@@ -21,7 +21,7 @@ higher_level = []
 response = requests.get("https://api.open5e.com/spells")
 while not stop_flag:
     for spell in response.json()["results"]:
-        spell_names.append(spell["slug"])
+        spell_names.append(spell["name"])
         spell_range.append(spell["range"])
         spell_mats.append(spell["material"])
         ritual.append(spell["ritual"])
