@@ -17,8 +17,6 @@ skills_prof = []
 equipment = []
 prof_table = []
 spell_type = []
-subtypes = []
-subtype_desc = []
 
 response = requests.get("https://api.open5e.com/classes")
 while not stop_flag:
@@ -36,8 +34,6 @@ while not stop_flag:
         equipment.append(item["equipment"])
         prof_table.append(item["table"])
         spell_type.append(item["spellcasting_ability"])
-        subtypes.append(item["subtypes_name"])
-        subtype_desc.append(item["archetypes"])
 
     if response.json()["next"] == None:
         stop_flag = True
@@ -54,6 +50,6 @@ with open("../data/classes.csv", "w", newline='') as f:
         row = [index,class_name[index], class_desc[index], hit_die[index], hp_at_1[index],
                 hp_higher[index], armor_prof[index], weapon_prof[index], tool_prof[index],
                 saving_prof[index], skills_prof[index], equipment[index], prof_table[index],
-                spell_type[index], subtypes[index], subtype_desc[index]]
+                spell_type[index]]
 
         writer.writerow(row)

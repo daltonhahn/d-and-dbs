@@ -16,7 +16,6 @@ speed_desc = []
 languages = []
 vision = []
 traits = []
-subraces = []
 
 response = requests.get("https://api.open5e.com/races")
 while not stop_flag:
@@ -33,7 +32,6 @@ while not stop_flag:
         languages.append(item["languages"])
         vision.append(item["vision"])
         traits.append(item["traits"])
-        subraces.append(item["subraces"])
 
     if response.json()["next"] == None:
         stop_flag = True
@@ -49,6 +47,6 @@ with open("../data/races.csv", "w", newline='') as f:
     for index in range(len(race_name)):
         row = [index,race_name[index], race_desc[index], asi_desc[index],
                 asi[index], age[index], alignment[index], size[index], speed[index],
-                speed_desc[index], languages[index], vision[index], traits[index], subraces[index]]
+                speed_desc[index], languages[index], vision[index], traits[index]] 
 
         writer.writerow(row)
