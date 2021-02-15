@@ -26,7 +26,7 @@ function App() {
         ... NEW TEST no changes in this part ...
 
         <p>The current time is {currentTime}.</p>
-        <p>{markString}</p>
+        <p class="markdown">{markString}</p>
         <Button variant="contained" color="primary">
     Hello World
   </Button>
