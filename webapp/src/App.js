@@ -104,4 +104,5 @@ export function SimpleTabs() {
   );
 }
 
+export SimpleTabs;
 export default App;
