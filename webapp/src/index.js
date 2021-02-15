@@ -7,8 +7,8 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
     <SimpleTabs />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
