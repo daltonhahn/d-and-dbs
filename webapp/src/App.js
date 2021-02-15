@@ -19,7 +19,7 @@ function App() {
 
   useEffect(() => {
     fetch('/mark_test').then(res => res.json()).then(data => {
-      markd = data.mark;
+      markd = data.mark; console.log(markd);
     });
   }, []);
 
