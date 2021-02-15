@@ -30,7 +30,7 @@ function App() {
         ... NEW TEST no changes in this part ...
 
         <p>The current time is {currentTime}.</p>
-        <ReactMarkdown plugins={[gfm]} source={markd} />
+        <p><ReactMarkdown plugins={[gfm]} source={markd} /></p>
         <Button variant="contained" color="primary">
     Hello World
   </Button>
