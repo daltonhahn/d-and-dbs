@@ -9,7 +9,7 @@ var gfm = require('remark-gfm')
 
 function App() {
   const [currentTime, setCurrentTime] = useState(0);
-  const [markString, setMark] = useState(0);
+  const [markd, setMarkd] = useState(0);
 
   useEffect(() => {
     fetch('/time').then(res => res.json()).then(data => {
@@ -19,7 +19,7 @@ function App() {
 
   useEffect(() => {
     fetch('/mark_test').then(res => res.json()).then(data => {
-      setMark(data.mark);
+      setMarkd(data.mark);
     });
   }, []);
 
