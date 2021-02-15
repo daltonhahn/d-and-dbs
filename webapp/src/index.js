@@ -4,10 +4,15 @@ import './index.css';
 import App from './App';
 import SimpleTabs from './SimpleTabs';
 import reportWebVitals from './reportWebVitals';
+import ReactMarkdown from 'react-markdown'
+import {render} from 'react-dom'
+
+const input = "## How about some code?"
 
 ReactDOM.render(
   <React.StrictMode>
     <SimpleTabs />
+    <ReactMarkdown source={input} />
     <App />
   </React.StrictMode>,
   document.getElementById('root')

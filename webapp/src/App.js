@@ -4,13 +4,19 @@ import './App.css';
 import Button from "@material-ui/core/Button";
 
 function App() {
-  const [currentTime, setCurrentTime] = useState(0);
+  const [currentTime, setCurrentTime, markString, setMark] = useState(0);
 
   useEffect(() => {
     fetch('/time').then(res => res.json()).then(data => {
       setCurrentTime(data.time);
     });
   }, []);
+
+  // useEffect(() => {
+  //   fetch('/mark_test').then(res => res.json()).then(data => {
+  //     markString;
+  //   });
+  // }, []);
 
   return (
     <div className="App">
@@ -19,6 +25,7 @@ function App() {
         ... NEW TEST no changes in this part ...
 
         <p>The current time is {currentTime}.</p>
+        // <p>{markString}</p>
         <Button variant="contained" color="primary">
     Hello World
   </Button>
