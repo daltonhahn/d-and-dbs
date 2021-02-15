@@ -19,6 +19,9 @@ function App() {
 
         <p>The current time is {currentTime}.</p>
       </header>
+      <Button variant="contained" color="primary">
+  Hello World
+</Button>
     </div>
   );
 }
