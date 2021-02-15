@@ -13,7 +13,7 @@ const input = "\"desc\": \"Objects come to life at your command. Choose up to te
 ReactDOM.render(
   <React.StrictMode>
     <SimpleTabs />
-    <ReactMarkdown plugins={[gfm]} children={input} />
+    <ReactMarkdown plugins={[gfm]} source={input} />
     <App />
   </React.StrictMode>,
   document.getElementById('root')
