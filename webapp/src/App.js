@@ -9,7 +9,7 @@ var gfm = require('remark-gfm')
 
 function App() {
   const [currentTime, setCurrentTime] = useState(0);
-  var markd = "";
+  var myVarMarkdown = "";
 
   useEffect(() => {
     fetch('/time').then(res => res.json()).then(data => {
@@ -19,7 +19,7 @@ function App() {
 
   useEffect(() => {
     fetch('/mark_test').then(res => res.json()).then(data => {
-      markd = data.mark; console.log(markd);
+      myVarMarkdown = data.mark; console.log(myVarMarkdown);
     });
   }, []);
 
@@ -30,7 +30,7 @@ function App() {
         ... NEW TEST no changes in this part ...
 
         <p>The current time is {currentTime}.</p>
-        <p><ReactMarkdown plugins={[gfm]} source={markd} /></p>
+        <p><ReactMarkdown plugins={[gfm]} source={myVarMarkdown} /></p>
         <Button variant="contained" color="primary">
     Hello World
   </Button>
