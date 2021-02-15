@@ -4,10 +4,7 @@ import './index.css';
 import App from './App';
 import SimpleTabs from './SimpleTabs';
 import reportWebVitals from './reportWebVitals';
-import ReactMarkdown from 'react-markdown'
-import {render} from 'react-dom'
 
-var gfm = require('remark-gfm')
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,13 +12,6 @@ ReactDOM.render(
     <App />
   </React.StrictMode>,
   document.getElementById('root')
-);
-
-ReactDOM.render(
-  <React.StrictMode>
-    <ReactMarkdown plugins={[gfm]} source={input} />
-  </React.StrictMode>,
-  document.getElementsByClassName('markdown')[0]
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Button from "@material-ui/core/Button";
+import ReactMarkdown from 'react-markdown'
+import {render} from 'react-dom'
+
+var gfm = require('remark-gfm')
 
 function App() {
   const [currentTime, setCurrentTime] = useState(0);
@@ -26,7 +30,7 @@ function App() {
         ... NEW TEST no changes in this part ...
 
         <p>The current time is {currentTime}.</p>
-        <p class="markdown">{markString}</p>
+        <ReactMarkdown plugins={[gfm]} source={markString} />
         <Button variant="contained" color="primary">
     Hello World
   </Button>
