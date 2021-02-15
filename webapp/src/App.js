@@ -34,6 +34,8 @@ function App() {
   );
 }
 
+export default App;
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -103,6 +105,4 @@ export function SimpleTabs() {
     </div>
   );
 }
-
 export SimpleTabs;
-export default App;
