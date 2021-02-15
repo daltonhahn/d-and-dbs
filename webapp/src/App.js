@@ -15,7 +15,7 @@ function App() {
 
   useEffect(() => {
     fetch('/mark_test').then(res => res.json()).then(data => {
-      setMark(data);
+      setMark(data.mark);
     });
   }, []);
 
