@@ -19,10 +19,10 @@ function App() {
         ... NEW TEST no changes in this part ...
 
         <p>The current time is {currentTime}.</p>
+        <Button variant="contained" color="primary">
+    Hello World
+  </Button>
       </header>
-      <Button variant="contained" color="primary">
-  Hello World
-</Button>
     </div>
   );
 }
