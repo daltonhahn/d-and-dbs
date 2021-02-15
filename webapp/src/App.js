@@ -15,7 +15,7 @@ function App() {
     <div className="App">
       <header className="App-header">
 
-        ... TEST no changes in this part ...
+        ... NEW TEST no changes in this part ...
 
         <p>The current time is {currentTime}.</p>
       </header>
