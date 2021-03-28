@@ -43,19 +43,9 @@ while not stop_flag:
 
 
 # CSV Writing
-with open("../data/spells.csv", "w", newline='') as f:
+with open("../data/spells.csv", "w", newline='\n') as f:
     writer = csv.writer(f)
 
     for index in range(len(spell_names)):
-        row = [index,spell_names[index], spell_range[index], spell_mats[index], ritual[index],
-                duration[index], concentration[index], cast_time[index], spell_level[index],
-                spell_school[index], spell_classes[index]]
+        row = [spell_names[index], spell_desc[index], spell_level[index], spell_school[index], spell_classes[index]]
         writer.writerow(row)
-
-with open("../data/spells-add-on.csv", "w", newline='') as f_add:
-    add_writer = csv.writer(f_add)
-
-    for index in range(len(spell_names)):
-        row = [index,spell_desc[index], higher_level[index]]
-        add_writer.writerow(row)
-        

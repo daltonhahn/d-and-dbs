@@ -31,16 +31,9 @@ while not stop_flag:
 
 
 # CSV Writing
-with open("../data/magicitems.csv", "w", newline='') as f:
+with open("../data/magicitems.csv", "w", newline='\n') as f:
     writer = csv.writer(f)
 
     for index in range(len(magic_name)):
-        row = [index, magic_name[index], magic_type[index], rarity[index], attunement[index]]
+        row = [magic_name[index], description[index], magic_type[index], rarity[index]]
         writer.writerow(row)
-
-with open("../data/magicitems-add-on.csv", "w", newline='') as f_add:
-    add_writer = csv.writer(f_add)
-
-    for index in range(len(magic_name)):
-        row = [index,description[index]]
-        add_writer.writerow(row)

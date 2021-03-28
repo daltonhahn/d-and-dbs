@@ -15,11 +15,11 @@ align_desc = ["**Lawful good** (LG) creatures can be counted on to do the right 
         "**Chaotic evil** (CE) creatures act with arbitrary violence, spurred by their greed, hatred, or bloodlust. Demons, red dragons, and orcs are chaotic evil."]
 
 
-with open("../data/alignments.csv", "w", newline='') as f:
+with open("../data/alignments.csv", "w", newline='\n') as f:
     writer = csv.writer(f)
 
     for index in range(len(alignments)):
-        row = [index, alignments[index], align_desc[index]]
+        row = [alignments[index], align_desc[index]]
         writer.writerow(row)
 
 

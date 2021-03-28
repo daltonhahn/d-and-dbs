@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS character_alignment;
+DROP TABLE IF EXISTS character_class;
+DROP TABLE IF EXISTS character_magicitem;
+DROP TABLE IF EXISTS character_race;
+DROP TABLE IF EXISTS character_spell;
+DROP TABLE IF EXISTS character_weapon;
+DROP TABLE IF EXISTS alignments;
+DROP TABLE IF EXISTS characters;
+DROP TABLE IF EXISTS classes;
+DROP TABLE IF EXISTS magicitems;
+DROP TABLE IF EXISTS races;
+DROP TABLE IF EXISTS spells;
+DROP TABLE IF EXISTS weapons;

@@ -1,0 +1,13 @@
+DELETE FROM character_alignment;
+DELETE FROM character_class;
+DELETE FROM character_magicitem;
+DELETE FROM character_race;
+DELETE FROM character_spell;
+DELETE FROM character_weapon;
+DELETE FROM alignments;
+DELETE FROM characters;
+DELETE FROM classes;
+DELETE FROM magicitems;
+DELETE FROM races;
+DELETE FROM spells;
+DELETE FROM weapons;

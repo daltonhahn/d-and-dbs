@@ -41,12 +41,10 @@ while not stop_flag:
 
 
 # CSV Writing
-with open("../data/races.csv", "w", newline='') as f:
+with open("../data/races.csv", "w", newline='\n') as f:
     writer = csv.writer(f)
 
     for index in range(len(race_name)):
-        row = [index,race_name[index], race_desc[index], asi_desc[index],
-                asi[index], age[index], alignment[index], size[index], speed[index],
-                speed_desc[index], languages[index], vision[index], traits[index]] 
+        row = [race_name[index], race_desc[index], speed[index], languages[index]] 
 
         writer.writerow(row)

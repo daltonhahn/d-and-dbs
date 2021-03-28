@@ -43,13 +43,10 @@ while not stop_flag:
 
 
 # CSV Writing
-with open("../data/classes.csv", "w", newline='') as f:
+with open("../data/classes.csv", "w", newline='\n') as f:
     writer = csv.writer(f)
 
     for index in range(len(class_name)):
-        row = [index,class_name[index], class_desc[index], hit_die[index], hp_at_1[index],
-                hp_higher[index], armor_prof[index], weapon_prof[index], tool_prof[index],
-                saving_prof[index], skills_prof[index], equipment[index], prof_table[index],
-                spell_type[index]]
+        row = [class_name[index], class_desc[index], prof_table[index], spell_type[index]]
 
         writer.writerow(row)
