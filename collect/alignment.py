@@ -19,7 +19,7 @@ with open("../data/alignments.csv", "w", newline='\n') as f:
     writer = csv.writer(f)
 
     for index in range(len(alignments)):
-        row = [alignments[index], align_desc[index]]
+        row = [index+1,alignments[index], align_desc[index]]
         writer.writerow(row)
 
 

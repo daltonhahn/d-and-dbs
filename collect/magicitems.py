@@ -35,5 +35,5 @@ with open("../data/magicitems.csv", "w", newline='\n') as f:
     writer = csv.writer(f)
 
     for index in range(len(magic_name)):
-        row = [magic_name[index], description[index], magic_type[index], rarity[index]]
+        row = [index+1,magic_name[index], description[index], magic_type[index], rarity[index]]
         writer.writerow(row)

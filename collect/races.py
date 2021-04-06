@@ -45,6 +45,6 @@ with open("../data/races.csv", "w", newline='\n') as f:
     writer = csv.writer(f)
 
     for index in range(len(race_name)):
-        row = [race_name[index], race_desc[index], speed[index], languages[index]] 
+        row = [index+1,race_name[index], race_desc[index], speed[index], languages[index]] 
 
         writer.writerow(row)

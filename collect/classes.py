@@ -47,6 +47,6 @@ with open("../data/classes.csv", "w", newline='\n') as f:
     writer = csv.writer(f)
 
     for index in range(len(class_name)):
-        row = [class_name[index], class_desc[index], prof_table[index], spell_type[index]]
+        row = [index+1,class_name[index], class_desc[index], prof_table[index], spell_type[index]]
 
         writer.writerow(row)

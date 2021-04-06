@@ -32,8 +32,8 @@ while not stop_flag:
 
 # CSV Writing
 with open("../data/weapons.csv", "w", newline='\n') as f:
-    writer = csv.writer(f)
+    writer = csv.writer(f, delimiter="@", quotechar='~')
 
     for index in range(len(weapon_name)):
-        row = [weapon_name[index], weapon_category[index], weapon_damage[index]]
+        row = [index+1,weapon_name[index], weapon_category[index], weapon_damage[index]]
         writer.writerow(row)

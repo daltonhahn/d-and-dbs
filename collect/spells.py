@@ -44,8 +44,8 @@ while not stop_flag:
 
 # CSV Writing
 with open("../data/spells.csv", "w", newline='\n') as f:
-    writer = csv.writer(f)
+    writer = csv.writer(f, delimiter='@', quotechar='~')
 
     for index in range(len(spell_names)):
-        row = [spell_names[index], spell_desc[index], spell_level[index], spell_school[index], spell_classes[index]]
+        row = [index+1,spell_names[index], spell_desc[index], spell_level[index], spell_school[index], spell_classes[index]]
         writer.writerow(row)
