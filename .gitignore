@@ -1,4 +1,5 @@
 data/
+database/relation_fill/*
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/flask,node,react,reactnative,python
