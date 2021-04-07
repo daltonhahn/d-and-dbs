@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS races (
 	race_name VARCHAR(255) NOT NULL,
 	race_desc TEXT,
 	race_speed VARCHAR(255) NOT NULL,
-	race_langs VARCHAR(255) NOT NULL,
+	race_langs TEXT,
 	PRIMARY KEY (race_ID)
 );
 
