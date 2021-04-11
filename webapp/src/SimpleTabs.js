@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component,useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles,makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -20,6 +20,7 @@ import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import CharacterLookup from './CharacterLookup';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -34,7 +35,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          <Typography>{props.children}</Typography>
         </Box>
       )}
     </div>
@@ -71,18 +72,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function SimpleTabs() {
-  const classes = useStyles();
-  const [value, setValue] = useState(0);
+class SimpleTabs extends Component {
+	constructor(props){
+		super(props);
+		this.state = {
+			query: "",
+			Tabvalue: 0,
+		};
+		var handleQuery = this.handleQuery.bind(this);
+	};
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  handleValueChange = (event, value) => {
+          this.setState({...this.state,
+                  Tabvalue: value,
+          })
+          console.log(this.state);
   };
 
+  handleQuery(data) {
+	  this.setState({...this.state, query: data },
+	  () => console.log(this.state.query)
+	  );
+  }
+
+  render() {
+	  const { classes } = this.props;
+	  const { Tabvalue } = this.state;
+	  var handleQuery = this.handleQuery;
+	  let value = Tabvalue;
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Tabs className={classes.tabGroup} value={value} onChange={handleChange} aria-label="simple tabs example">
+        <Tabs className={classes.tabGroup} value={value} onChange={this.handleValueChange} aria-label="simple tabs example">
           <Tab label="Home" {...a11yProps(0)} />
           <Tab label="Characters" {...a11yProps(1)} />
           <Tab label="Spells" {...a11yProps(2)} />
@@ -92,147 +113,30 @@ export function SimpleTabs() {
           <Tab label="Alignments" {...a11yProps(6)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-	  <CharacterLookup>
+      {value === 0 && <TabPanel>
+	  <b>EECS 647 -- Dungeons and Databases</b>
+      </TabPanel>}
+      {value === 1 && <TabPanel>
+	  <CharacterLookup handleQuery={handleQuery.bind(this)}>
 	  </CharacterLookup>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
+      </TabPanel>}
+      {value === 2 && <TabPanel>
         PUT THE SPELLS LOOKUP/LIST HERE 
-      </TabPanel>
-      <TabPanel value={value} index={3}>
+      </TabPanel>}
+      {value === 3 && <TabPanel>
         PUT THE Weapons LOOKUP/LIST HERE 
-      </TabPanel>
-      <TabPanel value={value} index={4}>
+      </TabPanel>}
+      {value === 4 && <TabPanel>
         PUT THE Races LOOKUP/LIST HERE 
-      </TabPanel>
-      <TabPanel value={value} index={5}>
+      </TabPanel>}
+      {value === 5 && <TabPanel>
         PUT THE Classes LOOKUP/LIST HERE 
-      </TabPanel>
-      <TabPanel value={value} index={6}>
+      </TabPanel>}
+      {value === 6 && <TabPanel>
         PUT THE Alignments LOOKUP/LIST HERE 
-      </TabPanel>
+      </TabPanel>}
     </div>
   );
+  }
 }
-export default SimpleTabs;
-
-function CharacterLookup() {
-  const classes = useStyles();
-  const [lvl, setLvl] = React.useState('');
-
-  const handleLvlChange = (event) => {
-    setLvl(event.target.value);
-  };
-
-
-  return (
-    <div>
-    <Box display="flex" justifyContent="center">
-	  <Box p={1}>
-	  <br></br>
-      <IDInputs>
-      </IDInputs>
-	  </Box>
-
-    <Box p={3}>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label"></InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={lvl}
-          onChange={handleLvlChange}
-        >
-          <MenuItem value={1}>1</MenuItem>
-          <MenuItem value={2}>2</MenuItem>
-          <MenuItem value={3}>3</MenuItem>
-          <MenuItem value={4}>4</MenuItem>
-          <MenuItem value={5}>5</MenuItem>
-          <MenuItem value={6}>6</MenuItem>
-          <MenuItem value={7}>7</MenuItem>
-          <MenuItem value={8}>8</MenuItem>
-          <MenuItem value={9}>9</MenuItem>
-          <MenuItem value={10}>10</MenuItem>
-          <MenuItem value={11}>11</MenuItem>
-          <MenuItem value={12}>12</MenuItem>
-          <MenuItem value={13}>13</MenuItem>
-          <MenuItem value={14}>14</MenuItem>
-          <MenuItem value={15}>15</MenuItem>
-          <MenuItem value={16}>16</MenuItem>
-          <MenuItem value={17}>17</MenuItem>
-          <MenuItem value={18}>18</MenuItem>
-          <MenuItem value={19}>19</MenuItem>
-          <MenuItem value={20}>20</MenuItem>
-        </Select>
-	<FormHelperText>Character Level</FormHelperText>
-      </FormControl>
-	  </Box>
-	  <Box p={1}>
-	  <br></br>
-      <NameInputs>
-      </NameInputs>
-	  </Box>
-    </Box>
-    <Box display="flex" justifyContent="center" p={1}>
-	  <CheckboxLabels>
-	  </CheckboxLabels>
-    </Box>
-    <Box display="flex" justifyContent="center" p={1}>
-      <Button variant="contained">Search</Button>
-    </Box>
-    </div>
-  );
-}
-
-function NameInputs() {
-  const classes = useStyles();
-
-  return (
-    <form className={classes.root} noValidate autoComplete="off">
-      <Input placeholder="Character Name" inputProps={{ 'aria-label': 'description' }} />
-    </form>
-  );
-}
-
-function IDInputs() {
-  const classes = useStyles();
-
-  return (
-    <form className={classes.root} noValidate autoComplete="off">
-      <Input placeholder="Character ID" inputProps={{ 'aria-label': 'description' }} />
-    </form>
-  );
-}
-
-function CheckboxLabels() {
-  const [state, setState] = React.useState({
-  });
-
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
-
-  return (
-    <FormGroup row>
-      <FormControlLabel
-        control={<Checkbox checked={state.checkedA} onChange={handleChange} name="checkedA" />}
-        label="Spells"
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={state.checkedB}
-            onChange={handleChange}
-            name="checkedB"
-          />
-        }
-        label="Weapons"
-      />
-      <FormControlLabel control={<Checkbox name="checkedC" />} label="Races" />
-      <FormControlLabel control={<Checkbox name="checkedD" />} label="Classes" />
-      <FormControlLabel control={<Checkbox name="checkedE" />} label="Alignments" />
-    </FormGroup>
-  );
-}
+export default withStyles(useStyles) (SimpleTabs);

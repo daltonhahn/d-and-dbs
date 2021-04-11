@@ -1,35 +1,18 @@
 import React, { Component } from 'react';
 import Box from '@material-ui/core/Box';
 import Button from "@material-ui/core/Button";
+import ReactMarkdown from 'react-markdown';
 
-class QueryOutput extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {msg: "hello"}
-    this.handleClick = this.handleClick.bind(this)
-  }
-  handleClick() {
-    fetch('/time').then(res => res.json()).then((data) => {
-	  this.setState({msg: data.time })
-    })
-    console.log(this.state.msg);
-  }
+var gfm = require('remark-gfm')
 
-  render() {
-    return (
-      <div>
-      <Box>
-        <p>{this.state.msg}</p>
-      </Box>
 
-      <Box>
-        <Button onClick={this.handleClick} variant="contained" color="primary">
-          Hello World
-        </Button>
-      </Box>
-      </div>
-    );
-  }
+function QueryOutput(props) {
+	console.log(props);
+	return (
+	      <Box>
+		<ReactMarkdown plugins={[gfm]} source={props.data} />
+	      </Box>
+	);
 }
 
-export default QueryOutput
+export default QueryOutput;
