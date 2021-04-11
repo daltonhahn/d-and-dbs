@@ -9,19 +9,23 @@ import SimpleTabs from './SimpleTabs';
 class App extends Component {
   constructor(props){
 	  super(props)
-	  this.state = {query: "Dungeons and Databases"}
-  }
+	  this.state = {output: "Dungeons and Databases"}
+	  var sendQuery = this.sendQuery.bind(this);
+  };
 
-  sendQuery = () => {
-    this.setState({query:""});
+  sendQuery(data) {
+	  console.log(data);
+	  fetch('/character/'.concat(data)).then(res => res.json()).then(data => {
+      		this.setState({output: data.string});});
   };
 
   render() {
+	  var sendQuery = this.sendQuery;
   return (
     <div className="App">
-    	<SimpleTabs queryString={this.props.data} />
+    	<SimpleTabs sendQuery={sendQuery.bind(this)} />
 	  <header className="App-header">
-	    <QueryOutput  data={this.state.query} />
+	    <QueryOutput  data={this.state.output} />
 	  </header>
     </div>
   );

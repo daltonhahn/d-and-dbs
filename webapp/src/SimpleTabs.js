@@ -89,11 +89,12 @@ class SimpleTabs extends Component {
           console.log(this.state);
   };
 
-  handleQuery(data) {
-	  this.setState({...this.state, query: data },
-	  () => console.log(this.state.query)
-	  );
+  handleQuery(data)  {
+	  this.setState({query: data });
+	  this.props.sendQuery(data);
   }
+
+
 
   render() {
 	  const { classes } = this.props;

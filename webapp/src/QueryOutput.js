@@ -7,7 +7,6 @@ var gfm = require('remark-gfm')
 
 
 function QueryOutput(props) {
-	console.log(props);
 	return (
 	      <Box>
 		<ReactMarkdown plugins={[gfm]} source={props.data} />
