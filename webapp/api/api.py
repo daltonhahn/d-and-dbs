@@ -16,6 +16,46 @@ mydb = mysql.connector.connect(
 )
 app = Flask(__name__)
 
+def replace_chars(result):
+    new_result = []
+    bad_chars = ["\n", "\r"]
+    for w in result:
+        for i in bad_chars:
+            w = str(w).replace(i,'')
+        new_result.append(w)
+    return tuple(new_result)
+
+def spells_table(params):
+    attrs = []
+    vals = []
+    for index,p in enumerate(params):
+        a = (p.split("=")[0])
+        if a == "lvl":
+            attrs.append("spell_lvl")
+        elif a == "id":
+            attrs.append("spell_ID")
+        elif a == "school":
+            attrs.append("spell_school")
+        elif a == "classes":
+            attrs.append("spell_classes")
+        else:
+            attrs.append("spell_name")
+
+        temp_val = p.split("=")[1]
+        if temp_val != "":
+            if index == 0:
+                vals.append("spell_ID = " + "'" + str(temp_val) + "'")
+            elif index == 1:
+                vals.append("spell_lvl = " + "'" + str(temp_val) + "'")
+            elif index == 2:
+                vals.append("spell_school = " + "'" + str(temp_val) + "'")
+            elif index == 3:
+                vals.append("spell_classes = " + "'" + str(temp_val) + "'")
+            elif index == 4:
+                vals.append("spell_name = " + "'" + str(temp_val) + "'")
+
+    return (attrs,"spells",vals)
+
 def characters_table(params):
     attrs = []
     vals = []
@@ -55,6 +95,8 @@ def parse_query(q_string):
         params = t.split("&")
         if params[0] == "characters":
             lookup.append(characters_table(params[1:]))
+        elif params[0] == "spells":
+            lookup.append(spells_table(params[1:]))
 
     return lookup
 
@@ -73,7 +115,8 @@ def markdown_table(header,results):
     mark_string = mark_string + "|" + (" ----- |" *len(header.split(","))) + "\n"
     mark_string = mark_string + "|"
     for rec in results:
-        for item in rec:
+        clean_rec = replace_chars(rec)
+        for item in clean_rec:
             mark_string = mark_string + " " + str(item) + " |"
         mark_string = mark_string + "\n"
 
