@@ -20,7 +20,7 @@ import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-import CharacterLookup from './CharacterLookup';
+import Lookup from './Lookup';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -86,7 +86,6 @@ class SimpleTabs extends Component {
           this.setState({...this.state,
                   Tabvalue: value,
           })
-          console.log(this.state);
   };
 
   handleQuery(data)  {
@@ -106,35 +105,19 @@ class SimpleTabs extends Component {
       <AppBar position="static">
         <Tabs className={classes.tabGroup} value={value} onChange={this.handleValueChange} aria-label="simple tabs example">
           <Tab label="Home" {...a11yProps(0)} />
-          <Tab label="Characters" {...a11yProps(1)} />
-          <Tab label="Spells" {...a11yProps(2)} />
-          <Tab label="Weapons" {...a11yProps(3)} />
-          <Tab label="Races" {...a11yProps(4)} />
-          <Tab label="Classes" {...a11yProps(5)} />
-          <Tab label="Alignments" {...a11yProps(6)} />
+          <Tab label="Lookup" {...a11yProps(1)} />
+          <Tab label="DB Insert/Update" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       {value === 0 && <TabPanel>
 	  <b>EECS 647 -- Dungeons and Databases</b>
       </TabPanel>}
       {value === 1 && <TabPanel>
-	  <CharacterLookup handleQuery={handleQuery.bind(this)}>
-	  </CharacterLookup>
+	  <Lookup handleQuery={handleQuery.bind(this)}>
+	  </Lookup>
       </TabPanel>}
       {value === 2 && <TabPanel>
-        PUT THE SPELLS LOOKUP/LIST HERE 
-      </TabPanel>}
-      {value === 3 && <TabPanel>
-        PUT THE Weapons LOOKUP/LIST HERE 
-      </TabPanel>}
-      {value === 4 && <TabPanel>
-        PUT THE Races LOOKUP/LIST HERE 
-      </TabPanel>}
-      {value === 5 && <TabPanel>
-        PUT THE Classes LOOKUP/LIST HERE 
-      </TabPanel>}
-      {value === 6 && <TabPanel>
-        PUT THE Alignments LOOKUP/LIST HERE 
+        DB UPDATE HERE        
       </TabPanel>}
     </div>
   );

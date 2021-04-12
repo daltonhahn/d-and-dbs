@@ -35,60 +35,62 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-class CharacterLookup extends Component {
+class CharLookup extends Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
 			lvl: '',
 			id: '',
 			name: '',
-			query: '',
+			query: '%characters&id=&lvl=&name=',
 		};
 	};
 
   handleLvlChange = (event) => {
-	  this.setState({
-		  lvl: event.target.value,
-		  query: "".concat("lvl=",event.target.value,"&name=",this.state.name,"&id=",this.state.id),
-	  });
+	  event.preventDefault();
+          this.setState({
+                  lvl: event.target.value,
+                  query: "".concat("%characters&id=",this.state.id,"&lvl=",event.target.value,"&name=",this.state.name),
+          }, this.props.getCharQuery("".concat("%characters&id=",this.state.id,"&lvl=",event.target.value,"&name=",this.state.name)));
   };
 
   handleIDChange = (event) => {
-	  this.setState({
-		  id: event.target.value,
-		  query: "".concat("lvl=",this.state.lvl,"&name=",this.state.name,"&id=",event.target.value),
-	  });
+	  event.preventDefault();
+          this.setState({
+                  id: event.target.value,
+                  query: "".concat("%characters&id=",event.target.value,"&lvl=",this.state.lvl,"&name=",this.state.name),
+          }, this.props.getCharQuery("".concat("%characters&id=",event.target.value,"&lvl=",this.state.lvl,"&name=",this.state.name)));
   };
 
   handleNameChange = (event) => {
-	  this.setState({
-		  name: event.target.value,
-		  query: "".concat("lvl=",this.state.lvl,"&name=",event.target.value,"&id=",this.state.id),
-	  });
+	  event.preventDefault();
+          this.setState({
+                  name: event.target.value,
+                  query: "".concat("%characters&id=",this.state.id,"&lvl=",this.state.lvl,"&name=",event.target.value),
+	  }, this.props.getCharQuery("".concat("%characters&id=",this.state.id,"&lvl=",this.state.lvl,"&name=",event.target.value)));
   };
 
-  render() {
-	  const { classes } = this.props;
-  return (
-    <div>
-    <Box display="flex" justifyContent="center">
-	  <Box  p={1}>
-	  <br></br>
-	    <form className={classes.root} noValidate autoComplete="off">
-	      <Input placeholder="Character ID" inputProps={{ 'aria-label': 'description' }} value={this.state.id} onChange={this.handleIDChange}/>
-	    </form>
-	  </Box>
-
+  render () {
+	const { classes } = this.props;
+	  return(
+		  <Box display="flex" justifyContent="center">
+          <Box  p={1}>
+          <br></br>
+            <form className={classes.root} noValidate autoComplete="off">
+              <Input placeholder="Character ID" inputProps={{ 'aria-label': 'description' }} value={this.state.id} onChange={this.handleIDChange}/>
+            </form>
+          </Box>
     <Box p={3}>
       <FormControl className={this.props.classes.formControl}>
         <InputLabel id="demo-simple-select-label"></InputLabel>
         <Select
-	  name="lvlselect"
+          name="lvlselect"
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={this.state.lvl}
           onChange={this.handleLvlChange}
         >
+          <MenuItem value={''}></MenuItem>
           <MenuItem value={1}>1</MenuItem>
           <MenuItem value={2}>2</MenuItem>
           <MenuItem value={3}>3</MenuItem>
@@ -110,56 +112,16 @@ class CharacterLookup extends Component {
           <MenuItem value={19}>19</MenuItem>
           <MenuItem value={20}>20</MenuItem>
         </Select>
-	<FormHelperText>Character Level</FormHelperText>
+        <FormHelperText>Character Level</FormHelperText>
       </FormControl>
-	  </Box>
-	  <Box p={1}>
-	  <br></br>
-	    <form className={this.props.classes.root} noValidate autoComplete="off">
-	      <Input placeholder="Character Name" inputProps={{ 'aria-label': 'description' }} value={this.state.name} onChange={this.handleNameChange} />
-	    </form>
-	  </Box>
-    </Box>
-    <Box display="flex" justifyContent="center" p={1}>
-	  <CheckboxLabels>
-	  </CheckboxLabels>
-    </Box>
-    <Box display="flex" justifyContent="center" p={1}>
-      <Button onClick={() => this.props.handleQuery(this.state.query)} variant="contained">Search</Button>
-    </Box>
-    </div>
-  );
-  }
-}  export default withStyles( useStyles ) (CharacterLookup);
-
-
-function CheckboxLabels() {
-  const [state, setState] = React.useState({
-  });
-
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
-
-  return (
-    <FormGroup row>
-      <FormControlLabel
-        control={<Checkbox checked={state.checkedA} onChange={handleChange} name="checkedA" />}
-        label="Spells"
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={state.checkedB}
-            onChange={handleChange}
-            name="checkedB"
-          />
-        }
-        label="Weapons"
-      />
-      <FormControlLabel control={<Checkbox name="checkedC" />} label="Races" />
-      <FormControlLabel control={<Checkbox name="checkedD" />} label="Classes" />
-      <FormControlLabel control={<Checkbox name="checkedE" />} label="Alignments" />
-    </FormGroup>
-  );
-}
+          </Box>
+          <Box p={1}>
+          <br></br>
+            <form className={this.props.classes.root} noValidate autoComplete="off">
+              <Input placeholder="Character Name" inputProps={{ 'aria-label': 'description' }} value={this.state.name} onChange={this.handleNameChange} />
+            </form>
+          </Box>
+		  </Box>
+	  );
+	  }
+}  export default withStyles( useStyles ) (CharLookup);

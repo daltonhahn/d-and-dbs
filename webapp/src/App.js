@@ -15,7 +15,7 @@ class App extends Component {
 
   sendQuery(data) {
 	  console.log(data);
-	  fetch('/character/'.concat(data)).then(res => res.json()).then(data => {
+	  fetch('/query/'.concat(data)).then(res => res.json()).then(data => {
       		this.setState({output: data.string});});
   };
 
@@ -25,7 +25,7 @@ class App extends Component {
     <div className="App">
     	<SimpleTabs sendQuery={sendQuery.bind(this)} />
 	  <header className="App-header">
-	    <QueryOutput  data={this.state.output} />
+	    <QueryOutput className="App" data={this.state.output} />
 	  </header>
     </div>
   );
