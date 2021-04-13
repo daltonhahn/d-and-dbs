@@ -17,10 +17,6 @@ import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormLabel from '@material-ui/core/FormLabel';
-
 import CharLookup from './Characters';
 import SpellLookup from './Spells';
 import WeapLookup from './Weapons';
@@ -116,71 +112,34 @@ class Update extends Component {
 	  });
   };
 
-  boxChecked(data) {
-	  switch(data) {
+  boxChecked(target,data) {
+	  switch(target) {
 		  case "checkedA":
-			  this.setState({ 
-				  checkedA: "flex",
-				  checkedB: "none",
-				  checkedC: "none",
-				  checkedD: "none",
-				  checkedE: "none",
-				  checkedF: "none",
-			  });
+			  if (data == true) { this.setState({ checkedA: "flex", })}
+			  else { this.setState({ checkedA: "none", }) }
 			  break;
 		  case "checkedB":
-			  this.setState({ 
-				  checkedA: "none",
-				  checkedB: "flex",
-				  checkedC: "none",
-				  checkedD: "none",
-				  checkedE: "none",
-				  checkedF: "none",
-			  });
+			  if (data == true) { this.setState({ checkedB: "flex", })}
+			  else { this.setState({ checkedB: "none", }) }
 			  break;
 		  case "checkedC":
-			  this.setState({ 
-				  checkedA: "none",
-				  checkedB: "none",
-				  checkedC: "flex",
-				  checkedD: "none",
-				  checkedE: "none",
-				  checkedF: "none",
-			  });
+			  if (data == true) { this.setState({ checkedC: "flex", })}
+			  else { this.setState({ checkedC: "none", }) }
 			  break;
 		  case "checkedD":
-			  this.setState({ 
-				  checkedA: "none",
-				  checkedB: "none",
-				  checkedC: "none",
-				  checkedD: "flex",
-				  checkedE: "none",
-				  checkedF: "none",
-			  });
+			  if (data == true) { this.setState({ checkedD: "flex", })}
+			  else { this.setState({ checkedD: "none", }) }
 			  break;
 		  case "checkedE":
-			  this.setState({ 
-				  checkedA: "none",
-				  checkedB: "none",
-				  checkedC: "none",
-				  checkedD: "none",
-				  checkedE: "flex",
-				  checkedF: "none",
-			  });
+			  if (data == true) { this.setState({ checkedE: "flex", })}
+			  else { this.setState({ checkedE: "none", }) }
 			  break;
 		  case "checkedF":
-			  this.setState({ 
-				  checkedA: "none",
-				  checkedB: "none",
-				  checkedC: "none",
-				  checkedD: "none",
-				  checkedE: "none",
-				  checkedF: "flex",
-			  });
+			  if (data == true) { this.setState({ checkedF: "flex", })}
+			  else { this.setState({ checkedF: "none", }) }
 			  break;
 		  default:
 			  console.log("Not valid");
-			  break;
 	  }
   };
 
@@ -196,7 +155,7 @@ class Update extends Component {
   return (
     <div>
     <Box display="flex" justifyContent="center" p={1}>
-	  <RadioButtonsGroup boxChecked={boxChecked.bind(this)} />
+	  <CheckboxLabels boxChecked={boxChecked.bind(this)} />
     </Box>
     <Box display={this.state.checkedA} justifyContent="center" p={5}>
 	  <CharLookup getCharQuery={getCharQuery.bind(this)} />
@@ -225,33 +184,59 @@ class Update extends Component {
 }  export default withStyles( useStyles ) (Update);
 
 
-class RadioButtonsGroup extends Component {
+class CheckboxLabels extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			value: '',
+			checkedA: false,
+			checkedB: false,
+			checkedC: false,
+			checkedD: false,
+			checkedE: false,
+			checkedF: false,
 		};
 	};
+
   handleChange = (event) => {
           this.setState({
-		  value: event.target.value,
-          }, this.props.boxChecked(event.target.value));
+		  [event.target.name]: event.target.checked,
+          }, this.props.boxChecked(event.target.name,event.target.checked));
   };
-
 
 	render () {
   return (
-    <FormControl component="fieldset">
-      <FormLabel component="legend">Table to Update/Insert</FormLabel>
-      <RadioGroup row aria-label="table" name="table" value={this.value} onChange={this.handleChange}>
-        <FormControlLabel value="checkedA" control={<Radio />} label="Characters" />
-        <FormControlLabel value="checkedB" control={<Radio />} label="Spells" />
-        <FormControlLabel value="checkedC" control={<Radio />} label="Weapons" />
-        <FormControlLabel value="checkedD" control={<Radio />} label="Races" />
-        <FormControlLabel value="checkedE" control={<Radio />} label="Classes" />
-        <FormControlLabel value="checkedF" control={<Radio />} label="Alignments" />
-      </RadioGroup>
-    </FormControl>
+    <FormGroup row>
+      <FormControlLabel
+        control={<Checkbox checked={this.state.checkedA} onChange={this.handleChange} name="checkedA" />}
+        label="Characters"
+      />
+      <FormControlLabel
+        control={<Checkbox checked={this.state.checkedB} onChange={this.handleChange} name="checkedB" />}
+        label="Spells"
+      />
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={this.state.checkedC}
+            onChange={this.handleChange}
+            name="checkedC"
+          />
+        }
+        label="Weapons"
+      />
+      <FormControlLabel 
+        control={<Checkbox checked={this.state.checkedD} onChange={this.handleChange} name="checkedD" />}
+	label="Races"
+      />
+      <FormControlLabel 
+        control={<Checkbox checked={this.state.checkedE} onChange={this.handleChange} name="checkedE" />}
+	label="Classes"
+      />
+      <FormControlLabel 
+        control={<Checkbox checked={this.state.checkedF} onChange={this.handleChange} name="checkedF" />}
+	label="Alignments"
+      />
+    </FormGroup>
   );
 	}
 }
