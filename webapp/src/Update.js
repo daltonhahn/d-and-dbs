@@ -20,9 +20,6 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import CharLookup from './Characters';
 import SpellLookup from './Spells';
 import WeapLookup from './Weapons';
-import RaceLookup from './Races';
-import ClassLookup from './Classes';
-import AlignmentLookup from './Alignments';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-class Lookup extends Component {
+class Update extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -63,9 +60,6 @@ class Lookup extends Component {
 		var getCharQuery = this.getCharQuery.bind(this);
 		var getSpellQuery = this.getSpellQuery.bind(this);
 		var getWeaponQuery = this.getWeaponQuery.bind(this);
-		var getRaceQuery = this.getRaceQuery.bind(this);
-		var getClassQuery = this.getClassQuery.bind(this);
-		var getAlignmentQuery = this.getAlignmentQuery.bind(this);
 	};
 
   forceFresh = () => {
@@ -85,31 +79,13 @@ class Lookup extends Component {
 	  this.setState({
 		  spell_query: data,
 		  query: ''.concat(this.state.char_query,data,this.state.weapons_query,this.state.races_query,this.state.classes_query,this.state.alignments_query)
-	  }, () => this.forceFresh());
+	  });
   };
   getWeaponQuery(data) {
 	  this.setState({
 		  weapons_query: data,
 		  query: ''.concat(this.state.char_query,data,this.state.weapons_query,this.state.races_query,this.state.classes_query,this.state.alignments_query)
-	  }, () => this.forceFresh());
-  };
-  getRaceQuery(data) {
-	  this.setState({
-		  races_query: data,
-		  query: ''.concat(this.state.char_query,data,this.state.weapons_query,this.state.races_query,this.state.classes_query,this.state.alignments_query)
-	  }, () => this.forceFresh());
-  };
-  getClassQuery(data) {
-	  this.setState({
-		  classes_query: data,
-		  query: ''.concat(this.state.char_query,data,this.state.weapons_query,this.state.races_query,this.state.classes_query,this.state.alignments_query)
-	  }, () => this.forceFresh());
-  };
-  getAlignmentQuery(data) {
-	  this.setState({
-		  alignments_query: data,
-		  query: ''.concat(this.state.char_query,data,this.state.weapons_query,this.state.races_query,this.state.classes_query,this.state.alignments_query)
-	  }, () => this.forceFresh());
+	  });
   };
 
   boxChecked(target,data) {
@@ -149,40 +125,27 @@ class Lookup extends Component {
 	  var getCharQuery = this.getCharQuery;
 	  var getSpellQuery = this.getSpellQuery;
 	  var getWeaponQuery = this.getWeaponQuery;
-	  var getRaceQuery = this.getRaceQuery;
-	  var getClassQuery = this.getClassQuery;
-	  var getAlignmentQuery = this.getAlignmentQuery;
   return (
     <div>
     <Box display="flex" justifyContent="center" p={1}>
 	  <CheckboxLabels boxChecked={boxChecked.bind(this)} />
     </Box>
-    <Box display={this.state.checkedA} justifyContent="center">
-	  <CharLookup className={classes.boxArray} getCharQuery={getCharQuery.bind(this)} />
+    <Box display={this.state.checkedA} justifyContent="center" p={5}>
+	  <CharLookup getCharQuery={getCharQuery.bind(this)} />
 	  </Box>
-    <Box className={classes.boxArray} display={this.state.checkedB} justifyContent="center">
+    <Box display={this.state.checkedB} justifyContent="center" p={5}>
 	  <SpellLookup getSpellQuery={getSpellQuery.bind(this)} />
 	  </Box>
-    <Box className={classes.boxArray} display={this.state.checkedC} justifyContent="center">
+    <Box display={this.state.checkedC} justifyContent="center" p={5}>
 	  <WeapLookup getWeaponQuery={getWeaponQuery.bind(this)} />
 	  </Box>
-    <Box className={classes.boxArray} display={this.state.checkedD} justifyContent="center">
-	  <RaceLookup getRaceQuery={getRaceQuery.bind(this)} />
-	  </Box>
-    <Box className ={classes.boxArray} display={this.state.checkedE} justifyContent="center">
-	  <ClassLookup getClassQuery={getClassQuery.bind(this)} />
-	  </Box>
-    <Box className={classes.boxArray} display={this.state.checkedF} justifyContent="center">
-	  <AlignmentLookup getAlignmentQuery={getAlignmentQuery.bind(this)} />
-	  </Box>
-
     <Box display="flex" justifyContent="center" p={1}>
       <Button onClick={() => this.props.handleQuery(this.state.query)} variant="contained">Search</Button>
     </Box>
     </div>
   );
   }
-}  export default withStyles( useStyles ) (Lookup);
+}  export default withStyles( useStyles ) (Update);
 
 
 class CheckboxLabels extends Component {

@@ -21,6 +21,7 @@ import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import Lookup from './Lookup';
+import Update from './Update';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -117,7 +118,8 @@ class SimpleTabs extends Component {
 	  </Lookup>
       </TabPanel>}
       {value === 2 && <TabPanel>
-        DB UPDATE HERE        
+	  <Update >
+	  </Update>
       </TabPanel>}
     </div>
   );
