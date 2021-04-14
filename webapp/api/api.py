@@ -3,7 +3,7 @@ import mysql.connector
 from dotenv import load_dotenv
 import os
 from os.path import join, dirname
-from flask import Flask
+from flask import request,Flask
 
 load_dotenv("./.env")
 mydb = mysql.connector.connect(
@@ -122,9 +122,15 @@ def markdown_table(header,results):
 
     return mark_string
 
+#### EXAMPLE INSERT OR UPDATE QUERY
+#INSERT INTO table (id, name, age) VALUES(1, "A", 19) ON DUPLICATE KEY UPDATE
+#name="A", age=19
 
 @app.route('/query/<query>')
 def get_character(query=''):
+    #data = request.data
+      #request.args
+
     parsed_q = parse_query(query)
     mycursor = mydb.cursor(buffered=True)
     attrs = ""

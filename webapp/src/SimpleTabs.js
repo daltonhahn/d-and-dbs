@@ -94,12 +94,18 @@ class SimpleTabs extends Component {
 	  this.props.sendQuery(data);
   }
 
+  handleUpdate(data) {
+	  this.setState({query: data });
+	  this.props.sendUpdate(data);
+  }
+
 
 
   render() {
 	  const { classes } = this.props;
 	  const { Tabvalue } = this.state;
 	  var handleQuery = this.handleQuery;
+	  var handleUpdate = this.handleUpdate;
 	  let value = Tabvalue;
   return (
     <div className={classes.root}>
@@ -118,7 +124,7 @@ class SimpleTabs extends Component {
 	  </Lookup>
       </TabPanel>}
       {value === 2 && <TabPanel>
-	  <Update >
+	  <Update handleUpdate={handleUpdate.bind(this)}>
 	  </Update>
       </TabPanel>}
     </div>

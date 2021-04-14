@@ -21,12 +21,12 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 
-import CharLookup from './Characters';
-import SpellLookup from './Spells';
-import WeapLookup from './Weapons';
-import RaceLookup from './Races';
-import ClassLookup from './Classes';
-import AlignmentLookup from './Alignments';
+import CharUpdate from './CharactersUpdate';
+import SpellUpdate from './SpellsUpdate';
+import WeapUpdate from './WeaponsUpdate';
+import RaceUpdate from './RacesUpdate';
+import ClassUpdate from './ClassesUpdate';
+import AlignmentUpdate from './AlignmentsUpdate';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -198,26 +198,26 @@ class Update extends Component {
     <Box display="flex" justifyContent="center" p={1}>
 	  <RadioButtonsGroup boxChecked={boxChecked.bind(this)} />
     </Box>
-    <Box display={this.state.checkedA} justifyContent="center" p={5}>
-	  <CharLookup getCharQuery={getCharQuery.bind(this)} />
+    <Box display={this.state.checkedA} justifyContent="center" >
+	  <CharUpdate getCharQuery={getCharQuery.bind(this)} />
 	  </Box>
-    <Box display={this.state.checkedB} justifyContent="center" p={5}>
-	  <SpellLookup getSpellQuery={getSpellQuery.bind(this)} />
+    <Box display={this.state.checkedB} justifyContent="center" >
+	  <SpellUpdate getSpellQuery={getSpellQuery.bind(this)} />
 	  </Box>
-    <Box display={this.state.checkedC} justifyContent="center" p={5}>
-	  <WeapLookup getWeaponQuery={getWeaponQuery.bind(this)} />
+    <Box display={this.state.checkedC} justifyContent="center" >
+	  <WeapUpdate getWeaponQuery={getWeaponQuery.bind(this)} />
 	  </Box>
-    <Box display={this.state.checkedD} justifyContent="center" p={5}>
-	  <RaceLookup getRaceQuery={getRaceQuery.bind(this)} />
+    <Box display={this.state.checkedD} justifyContent="center" >
+	  <RaceUpdate getRaceQuery={getRaceQuery.bind(this)} />
 	  </Box>
-    <Box display={this.state.checkedE} justifyContent="center" p={5}>
-	  <ClassLookup getClassQuery={getClassQuery.bind(this)} />
+    <Box display={this.state.checkedE} justifyContent="center" >
+	  <ClassUpdate getClassQuery={getClassQuery.bind(this)} />
 	  </Box>
-    <Box display={this.state.checkedF} justifyContent="center" p={5}>
-	  <AlignmentLookup getAlignmentQuery={getAlignmentQuery.bind(this)} />
+    <Box display={this.state.checkedF} justifyContent="center" >
+	  <AlignmentUpdate getAlignmentQuery={getAlignmentQuery.bind(this)} />
 	  </Box>
     <Box display="flex" justifyContent="center" p={1}>
-      <Button onClick={() => this.props.handleQuery(this.state.query)} variant="contained">Search</Button>
+      <Button onClick={() => this.props.handleUpdate(this.state.query)} variant="contained">Insert/Update</Button>
     </Box>
     </div>
   );
