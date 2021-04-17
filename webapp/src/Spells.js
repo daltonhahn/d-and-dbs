@@ -174,7 +174,7 @@ class SpellLookup extends Component {
 	  };
 	  this.setState({
 		  classes: classList,
-	  });
+          }, () => this.props.getSpellQuery(this.state));
   };
 
 

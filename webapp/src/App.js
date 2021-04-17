@@ -9,7 +9,10 @@ import SimpleTabs from './SimpleTabs';
 class App extends Component {
   constructor(props){
 	  super(props)
-	  this.state = { output: "Dungeons and Databases"}
+	  this.state = { 
+		  output: "Dungeons and Databases",
+		  columns: '',
+	  }
 	  var sendQuery = this.sendQuery.bind(this);
 	  var sendUpdate = this.sendUpdate.bind(this);
   };
@@ -25,26 +28,12 @@ class App extends Component {
 		  body: JSON.stringify({
 			  data
 		  })
-		}).then(res => res.json()).then(data => { this.setState({output: data.string});
+		}).then(res => res.json()).then(data => { this.setState({output: data.records, columns: data.columns});
   });
   };
 
   sendUpdate(data) {
 	  console.log(data);
-/*
-	   fetch('/query', {
-		  method: 'POST',
-		  headers: {
-		    'Accept': 'application/json',
-		    'Content-Type': 'application/json',
-		  },
-		  body: JSON.stringify({
-		    firstParam: 'yourValue',
-		    secondParam: 'yourOtherValue',
-		  })
-		})
-		*/
-
   };
 
   render() {
@@ -54,7 +43,7 @@ class App extends Component {
     <div className="App">
     	<SimpleTabs sendUpdate={sendUpdate.bind(this)} sendQuery={sendQuery.bind(this)} />
 	  <header className="App-header">
-	    <QueryOutput className="App" data={this.state.output} />
+	    <QueryOutput className="App" columns={this.state.columns} data={this.state.output} />
 	  </header>
     </div>
   );

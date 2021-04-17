@@ -23,6 +23,7 @@ import WeapLookup from './Weapons';
 import RaceLookup from './Races';
 import ClassLookup from './Classes';
 import AlignmentLookup from './Alignments';
+import ItemLookup from './Items';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,6 +53,7 @@ class Lookup extends Component {
 				checkedD: 'none',
 				checkedE: 'none',
 				checkedF: 'none',
+				checkedG: 'none',
 			},
 			table_select: { 
 				characters: false,
@@ -60,6 +62,7 @@ class Lookup extends Component {
 				races: false,
 				classes: false,
 				alignments: false,
+				items: false,
 			},
 			query: {
 				char_query: {},
@@ -68,6 +71,7 @@ class Lookup extends Component {
 				race_query: {},
 				class_query: {},
 				alignment_query: {},
+				item_query: {},
 			},
 		};
 		var boxChecked = this.boxChecked.bind(this);
@@ -77,6 +81,7 @@ class Lookup extends Component {
 		var getRaceQuery = this.getRaceQuery.bind(this);
 		var getClassQuery = this.getClassQuery.bind(this);
 		var getAlignmentQuery = this.getAlignmentQuery.bind(this);
+		var getItemQuery = this.getItemQuery.bind(this);
 	};
 
   getCharQuery(data) {
@@ -117,6 +122,13 @@ class Lookup extends Component {
   getAlignmentQuery(data) {
 	  let query = this.state.query
 	  query["alignment_query"] = data
+	  this.setState({
+		  query: query,
+	  });
+  };
+  getItemQuery(data) {
+	  let query = this.state.query
+	  query["item_query"] = data
 	  this.setState({
 		  query: query,
 	  });
@@ -210,6 +222,20 @@ class Lookup extends Component {
 				  this.setState({ checkBoxes:checkBoxes, table_select: table_select, }) 
 			  }
 			  break;
+		  case "checkedG":
+			  table_select = this.state.table_select
+	  		  checkBoxes = this.state.checkBoxes
+			  if (data == true) { 
+				  table_select["magicitems"] = true
+	  		  	  checkBoxes["checkedG"] = "flex"
+				  this.setState({ checkBoxes: checkBoxes, table_select: table_select, })
+			  }
+			  else { 
+				  table_select["magicitems"] = false
+				  checkBoxes["checkedG"] = "none"
+				  this.setState({ checkBoxes:checkBoxes, table_select: table_select, }) 
+			  }
+			  break;
 		  default:
 			  console.log("Not valid");
 	  }
@@ -224,6 +250,7 @@ class Lookup extends Component {
 	  var getRaceQuery = this.getRaceQuery;
 	  var getClassQuery = this.getClassQuery;
 	  var getAlignmentQuery = this.getAlignmentQuery;
+	  var getItemQuery = this.getItemQuery;
   return (
     <div>
     <Box display="flex" justifyContent="center" p={1}>
@@ -247,6 +274,9 @@ class Lookup extends Component {
     <Box className={classes.boxArray} display={this.state.checkBoxes["checkedF"]} justifyContent="center">
 	  <AlignmentLookup getAlignmentQuery={getAlignmentQuery.bind(this)} />
 	  </Box>
+    <Box className={classes.boxArray} display={this.state.checkBoxes["checkedG"]} justifyContent="center">
+	  <ItemLookup getItemQuery={getItemQuery.bind(this)} />
+	  </Box>
 
     <Box display="flex" justifyContent="center" p={1}>
       <Button onClick={() => this.props.handleQuery({tables: this.state.table_select, query: this.state.query})} variant="contained">Search</Button>
@@ -268,6 +298,7 @@ class CheckboxLabels extends Component {
 				checkedD: false,
 				checkedE: false,
 				checkedF: false,
+				checkedG: false,
 			},
 		};
 	};
@@ -317,6 +348,10 @@ class CheckboxLabels extends Component {
       <FormControlLabel 
         control={<Checkbox checked={this.state.checkBoxes["checkedF"]} onChange={this.handleChange} name="checkedF" />}
 	label="Alignments"
+      />
+      <FormControlLabel 
+        control={<Checkbox checked={this.state.checkBoxes["checkedG"]} onChange={this.handleChange} name="checkedG" />}
+	label="Magic Items"
       />
     </FormGroup>
   );
