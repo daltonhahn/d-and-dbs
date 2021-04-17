@@ -45,19 +45,30 @@ class Lookup extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			checkedA: 'none',
-			checkedB: 'none',
-			checkedC: 'none',
-			checkedD: 'none',
-			checkedE: 'none',
-			checkedF: 'none',
-			char_query: '',
-			spell_query: '',
-			weapons_query: '',
-			races_query: '',
-			classes_query: '',
-			alignments_query: '',
-			query: '',
+			checkBoxes: {
+				checkedA: 'none',
+				checkedB: 'none',
+				checkedC: 'none',
+				checkedD: 'none',
+				checkedE: 'none',
+				checkedF: 'none',
+			},
+			table_select: { 
+				characters: false,
+				spells: false,
+				weapons: false,
+				races: false,
+				classes: false,
+				alignments: false,
+			},
+			query: {
+				char_query: {},
+				spell_query: {},
+				weapon_query: {},
+				race_query: {},
+				class_query: {},
+				alignment_query: {},
+			},
 		};
 		var boxChecked = this.boxChecked.bind(this);
 		var getCharQuery = this.getCharQuery.bind(this);
@@ -68,75 +79,136 @@ class Lookup extends Component {
 		var getAlignmentQuery = this.getAlignmentQuery.bind(this);
 	};
 
-  forceFresh = () => {
+  getCharQuery(data) {
+	  let query = this.state.query
+	  query["char_query"] = data
 	  this.setState({
-		  query: ("".concat(this.state.char_query,this.state.spell_query,this.state.weapons_query,this.state.races_query,
-			this.state.classes_query,this.state.alignments_query))
+		  query: query,
+	  });
+  };
+  getSpellQuery(data) {
+	  let query = this.state.query
+	  query["spell_query"] = data
+	  this.setState({
+		  query: query,
+	  });
+  };
+  getWeaponQuery(data) {
+	  let query = this.state.query
+	  query["weapon_query"] = data
+	  this.setState({
+		  query: query,
+	  });
+  };
+  getRaceQuery(data) {
+	  let query = this.state.query
+	  query["race_query"] = data
+	  this.setState({
+		  query: query,
+	  });
+  };
+  getClassQuery(data) {
+	  let query = this.state.query
+	  query["class_query"] = data
+	  this.setState({
+		  query: query,
+	  });
+  };
+  getAlignmentQuery(data) {
+	  let query = this.state.query
+	  query["alignment_query"] = data
+	  this.setState({
+		  query: query,
 	  });
   };
 
-  getCharQuery(data) {
-	  this.setState({
-		  char_query: data,
-		  query: ''.concat(data,this.state.spell_query,this.state.weapons_query,this.state.races_query,this.state.classes_query,this.state.alignments_query)
-	  }, () => this.forceFresh());
-  };
-  getSpellQuery(data) {
-	  this.setState({
-		  spell_query: data,
-		  query: ''.concat(this.state.char_query,data,this.state.weapons_query,this.state.races_query,this.state.classes_query,this.state.alignments_query)
-	  }, () => this.forceFresh());
-  };
-  getWeaponQuery(data) {
-	  this.setState({
-		  weapons_query: data,
-		  query: ''.concat(this.state.char_query,data,this.state.weapons_query,this.state.races_query,this.state.classes_query,this.state.alignments_query)
-	  }, () => this.forceFresh());
-  };
-  getRaceQuery(data) {
-	  this.setState({
-		  races_query: data,
-		  query: ''.concat(this.state.char_query,data,this.state.weapons_query,this.state.races_query,this.state.classes_query,this.state.alignments_query)
-	  }, () => this.forceFresh());
-  };
-  getClassQuery(data) {
-	  this.setState({
-		  classes_query: data,
-		  query: ''.concat(this.state.char_query,data,this.state.weapons_query,this.state.races_query,this.state.classes_query,this.state.alignments_query)
-	  }, () => this.forceFresh());
-  };
-  getAlignmentQuery(data) {
-	  this.setState({
-		  alignments_query: data,
-		  query: ''.concat(this.state.char_query,data,this.state.weapons_query,this.state.races_query,this.state.classes_query,this.state.alignments_query)
-	  }, () => this.forceFresh());
-  };
-
   boxChecked(target,data) {
+	  let table_select = this.state.table_select
+	  let checkBoxes = this.state.checkBoxes
 	  switch(target) {
 		  case "checkedA":
-			  if (data == true) { this.setState({ checkedA: "flex", })}
-			  else { this.setState({ checkedA: "none", }) }
+		  	  table_select = this.state.table_select
+	  		  checkBoxes = this.state.checkBoxes
+			  if (data == true) { 
+			    	  table_select["characters"] = true
+				  checkBoxes["checkedA"] = "flex"
+				  this.setState({ checkBoxes: checkBoxes, table_select: table_select, })
+			  }
+			  else { 
+			    	  table_select["characters"] = false
+				  checkBoxes["checkedA"] = "none"
+				  this.setState({ checkBoxes: checkBoxes, table_select: table_select, }) 
+			  }
 			  break;
 		  case "checkedB":
-			  if (data == true) { this.setState({ checkedB: "flex", })}
-			  else { this.setState({ checkedB: "none", }) }
+			  table_select = this.state.table_select
+	  		  checkBoxes = this.state.checkBoxes
+			  if (data == true) { 
+			    	  table_select["spells"] = true
+	  		  	  checkBoxes["checkedB"] = "flex"
+				  this.setState({ checkBoxes: checkBoxes, table_select: table_select, })
+			  }
+			  else { 
+				  table_select["spells"] = false
+	  		  	  checkBoxes["checkedB"] = "none"
+				  this.setState({ checkBoxes: checkBoxes, table_select: table_select, }) 
+			  }
 			  break;
 		  case "checkedC":
-			  if (data == true) { this.setState({ checkedC: "flex", })}
-			  else { this.setState({ checkedC: "none", }) }
+			  table_select = this.state.table_select
+	  		  checkBoxes = this.state.checkBoxes
+			  if (data == true) { 
+				  table_select["weapons"] = true
+	  		  	  checkBoxes["checkedC"] = "flex"
+				  this.setState({ checkBoxes: checkBoxes, table_select: table_select, })
+			  }
+			  else { 
+				  table_select["weapons"] = false
+	  		  	  checkBoxes["checkedC"] = "none"
+				  this.setState({ checkBoxes: checkBoxes, table_select: table_select, }) 
+			  }
 			  break;
 		  case "checkedD":
-			  if (data == true) { this.setState({ checkedD: "flex", })}
-			  else { this.setState({ checkedD: "none", }) }
+			  table_select = this.state.table_select
+	  		  checkBoxes = this.state.checkBoxes
+			  if (data == true) { 
+				  table_select["races"] = true
+	  		  	  checkBoxes["checkedD"] = "flex"
+				  this.setState({ checkBoxes: checkBoxes, table_select: table_select, })
+			  }
+			  else { 
+				  table_select["races"] = false
+	  		  	  checkBoxes["checkedD"] = "none"
+				  this.setState({ checkBoxes:checkBoxes, table_select: table_select, }) 
+			  }
 			  break;
 		  case "checkedE":
-			  if (data == true) { this.setState({ checkedE: "flex", })}
-			  else { this.setState({ checkedE: "none", }) }
+			  table_select = this.state.table_select
+	  		  checkBoxes = this.state.checkBoxes
+			  if (data == true) { 
+				  table_select["classes"] = true
+	  		  	  checkBoxes["checkedE"] = "flex"
+				  this.setState({ checkBoxes: checkBoxes, table_select: table_select, })
+			  }
+			  else { 
+				  table_select["classes"] = false
+	  		  	  checkBoxes["checkedE"] = "none"
+				  this.setState({ checkBoxes:checkBoxes, table_select: table_select, }) 
+			  }
 			  break;
 		  case "checkedF":
-			  if (data == true) { this.setState({ checkedF: "flex", })}
-			  else { this.setState({ checkedF: "none", }) }
+			  table_select = this.state.table_select
+	  		  checkBoxes = this.state.checkBoxes
+			  if (data == true) { 
+				  table_select["alignments"] = true
+	  		  	  checkBoxes["checkedF"] = "flex"
+				  this.setState({ checkBoxes: checkBoxes, table_select: table_select, })
+			  }
+			  else { 
+				  table_select["alignments"] = false
+				  checkBoxes["checkedF"] = "none"
+				  this.setState({ checkBoxes:checkBoxes, table_select: table_select, }) 
+			  }
 			  break;
 		  default:
 			  console.log("Not valid");
@@ -157,27 +229,27 @@ class Lookup extends Component {
     <Box display="flex" justifyContent="center" p={1}>
 	  <CheckboxLabels boxChecked={boxChecked.bind(this)} />
     </Box>
-    <Box display={this.state.checkedA} justifyContent="center">
+    <Box display={this.state.checkBoxes["checkedA"]} justifyContent="center">
 	  <CharLookup className={classes.boxArray} getCharQuery={getCharQuery.bind(this)} />
 	  </Box>
-    <Box className={classes.boxArray} display={this.state.checkedB} justifyContent="center">
+    <Box className={classes.boxArray} display={this.state.checkBoxes["checkedB"]} justifyContent="center">
 	  <SpellLookup getSpellQuery={getSpellQuery.bind(this)} />
 	  </Box>
-    <Box className={classes.boxArray} display={this.state.checkedC} justifyContent="center">
+    <Box className={classes.boxArray} display={this.state.checkBoxes["checkedC"]} justifyContent="center">
 	  <WeapLookup getWeaponQuery={getWeaponQuery.bind(this)} />
 	  </Box>
-    <Box className={classes.boxArray} display={this.state.checkedD} justifyContent="center">
+    <Box className={classes.boxArray} display={this.state.checkBoxes["checkedD"]} justifyContent="center">
 	  <RaceLookup getRaceQuery={getRaceQuery.bind(this)} />
 	  </Box>
-    <Box className ={classes.boxArray} display={this.state.checkedE} justifyContent="center">
+    <Box className={classes.boxArray} display={this.state.checkBoxes["checkedE"]} justifyContent="center">
 	  <ClassLookup getClassQuery={getClassQuery.bind(this)} />
 	  </Box>
-    <Box className={classes.boxArray} display={this.state.checkedF} justifyContent="center">
+    <Box className={classes.boxArray} display={this.state.checkBoxes["checkedF"]} justifyContent="center">
 	  <AlignmentLookup getAlignmentQuery={getAlignmentQuery.bind(this)} />
 	  </Box>
 
     <Box display="flex" justifyContent="center" p={1}>
-      <Button onClick={() => this.props.handleQuery(this.state.query)} variant="contained">Search</Button>
+      <Button onClick={() => this.props.handleQuery({tables: this.state.table_select, query: this.state.query})} variant="contained">Search</Button>
     </Box>
     </div>
   );
@@ -189,33 +261,40 @@ class CheckboxLabels extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			checkedA: false,
-			checkedB: false,
-			checkedC: false,
-			checkedD: false,
-			checkedE: false,
-			checkedF: false,
+			checkBoxes: {
+				checkedA: false,
+				checkedB: false,
+				checkedC: false,
+				checkedD: false,
+				checkedE: false,
+				checkedF: false,
+			},
 		};
 	};
 
   handleChange = (event) => {
+	  let checkBoxes = this.state.checkBoxes;
+	  let targetBox = event.target.name
+	  let targetVal = event.target.checked
+	  checkBoxes[targetBox] = targetVal;
           this.setState({
-		  [event.target.name]: event.target.checked,
-          }, this.props.boxChecked(event.target.name,event.target.checked));
+		  checkBoxes: checkBoxes,
+          }, this.props.boxChecked(targetBox,targetVal));
   };
 
 	render () {
   return (
     <FormGroup row>
       <FormControlLabel
-        control={<Checkbox checked={this.state.checkedA} onChange={this.handleChange} name="checkedA" />}
+        control={<Checkbox checked={this.state.checkBoxes["checkedA"]} onChange={this.handleChange} name="checkedA" />}
         label="Characters"
       />
       <FormControlLabel
-        control={<Checkbox checked={this.state.checkedB} onChange={this.handleChange} name="checkedB" />}
+        control={<Checkbox checked={this.state.checkBoxes["checkedB"]} onChange={this.handleChange} name="checkedB" />}
         label="Spells"
       />
       <FormControlLabel
+        control={<Checkbox checked={this.state.checkBoxes["checkedC"]} onChange={this.handleChange} name="checkedC" />}
         control={
           <Checkbox
             checked={this.state.checkedC}
@@ -226,15 +305,17 @@ class CheckboxLabels extends Component {
         label="Weapons"
       />
       <FormControlLabel 
+        control={<Checkbox checked={this.state.checkBoxes["checkedD"]} onChange={this.handleChange} name="checkedD" />}
         control={<Checkbox checked={this.state.checkedD} onChange={this.handleChange} name="checkedD" />}
 	label="Races"
       />
       <FormControlLabel 
+        control={<Checkbox checked={this.state.checkBoxes["checkedE"]} onChange={this.handleChange} name="checkedE" />}
         control={<Checkbox checked={this.state.checkedE} onChange={this.handleChange} name="checkedE" />}
 	label="Classes"
       />
       <FormControlLabel 
-        control={<Checkbox checked={this.state.checkedF} onChange={this.handleChange} name="checkedF" />}
+        control={<Checkbox checked={this.state.checkBoxes["checkedF"]} onChange={this.handleChange} name="checkedF" />}
 	label="Alignments"
       />
     </FormGroup>

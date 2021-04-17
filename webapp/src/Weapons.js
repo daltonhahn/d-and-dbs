@@ -43,7 +43,6 @@ class WeapLookup extends Component {
 			id: '',
 			name: '',
 			dmg: '',
-			query: '%weapons&id=&type=&dmg=&name=',
 		};
 	};
 
@@ -51,32 +50,28 @@ class WeapLookup extends Component {
 	  event.preventDefault();
           this.setState({
                   type: event.target.value,
-                  query: "".concat("%weapons&id=",this.state.id,"&type=",event.target.value,"&dmg=",this.state.dmg,"&name=",this.state.name),
-          }, this.props.getWeaponQuery("".concat("%weapons&id=",this.state.id,"&type=",event.target.value,"&dmg=",this.state.dmg,"&name=",this.state.name)));
+          }, () => this.props.getWeaponQuery(this.state));
   };
 
   handleIDChange = (event) => {
 	  event.preventDefault();
           this.setState({
                   id: event.target.value,
-                  query: "".concat("%weapons&id=",event.target.value,"&type=",this.state.type,"&dmg=",this.state.dmg,"&name=",this.state.name),
-          }, this.props.getWeaponQuery("".concat("%weapons&id=",event.target.value,"&type=",this.state.type,"&dmg=",this.state.dmg,"&name=",this.state.name)));
+          }, () => this.props.getWeaponQuery(this.state));
   };
 
   handleNameChange = (event) => {
 	  event.preventDefault();
           this.setState({
                   name: event.target.value,
-                  query: "".concat("%weapons&id=",this.state.id,"&type=",this.state.type,"&dmg=",this.state.dmg,"&name=",event.target.value),
-          }, this.props.getWeaponQuery("".concat("%weapons&id=",this.state.id,"&type=",this.state.type,"&dmg=",this.state.dmg,"&name=",event.target.value)));
+          }, () => this.props.getWeaponQuery(this.state));
   };
 
   handleDmgChange = (event) => {
 	  event.preventDefault();
           this.setState({
                   dmg: event.target.value,
-                  query: "".concat("%weapons&id=",this.state.id,"&type=",this.state.type,"&dmg=",event.target.value,"&name=",this.state.name),
-          }, this.props.getWeaponQuery("".concat("%weapons&id=",this.state.id,"&type=",this.state.type,"&dmg=",event.target.value,"&name=",this.state.name)));
+          }, () => this.props.getWeaponQuery(this.state));
   };
 
   render () {

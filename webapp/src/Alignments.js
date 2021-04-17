@@ -41,7 +41,6 @@ class AlignmentLookup extends Component {
 		this.state = {
 			id: '',
 			name: '',
-			query: '%alignments&id=&name=',
 		};
 	};
 
@@ -49,16 +48,14 @@ class AlignmentLookup extends Component {
 	  event.preventDefault();
           this.setState({
                   id: event.target.value,
-                  query: "".concat("%alignments&id=",event.target.value,"&name=",this.state.name),
-          }, this.props.getAlignmentQuery("".concat("%alignments&id=",event.target.value,"&name=",this.state.name)));
+          }, () => this.props.getAlignmentQuery(this.state));
   };
 
   handleNameChange = (event) => {
 	  event.preventDefault();
           this.setState({
                   name: event.target.value,
-                  query: "".concat("%alignments&id=",this.state.id,"&name=",event.target.value),
-	  }, this.props.getAlignmentQuery("".concat("%alignments&id=",this.state.id,"&name=",event.target.value)));
+	  }, () => this.props.getAlignmentQuery(this.state));
   };
 
   render () {

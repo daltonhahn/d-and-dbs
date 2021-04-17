@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import os
 from os.path import join, dirname
 from flask import request,Flask
+import json
 
 load_dotenv("./.env")
 mydb = mysql.connector.connect(
@@ -126,11 +127,14 @@ def markdown_table(header,results):
 #INSERT INTO table (id, name, age) VALUES(1, "A", 19) ON DUPLICATE KEY UPDATE
 #name="A", age=19
 
-@app.route('/query/<query>')
-def get_character(query=''):
+@app.route('/query', methods=["POST"])
+def get_character():
+    request_data = request.get_json()
+    print(request_data)
     #data = request.data
       #request.args
 
+    """
     parsed_q = parse_query(query)
     mycursor = mydb.cursor(buffered=True)
     attrs = ""
@@ -159,7 +163,8 @@ def get_character(query=''):
     result = mycursor.fetchall()
     output = gen_output(result)
     output = markdown_table(attrs,output)
-    return {'string': output}
+    """
+    return json.dumps({'string': "test"})
 
 
 

@@ -42,7 +42,6 @@ class ClassLookup extends Component {
 			spell_type: '',
 			id: '',
 			name: '',
-			query: '%classes&id=&name=&spell_type=',
 		};
 	};
 
@@ -50,24 +49,21 @@ class ClassLookup extends Component {
 	  event.preventDefault();
           this.setState({
                   spell_type: event.target.value,
-                  query: "".concat("%classes&id=",this.state.id,"&name=",this.state.name,"&spell_type=",event.target.value),
-          }, this.props.getClassQuery("".concat("%classes&id=",this.state.id,"&name=",this.state.name,"&spell_type=",event.target.value)));
+          }, () => this.props.getClassQuery(this.state));
   };
 
   handleIDChange = (event) => {
 	  event.preventDefault();
           this.setState({
                   id: event.target.value,
-                  query: "".concat("%classes&id=",event.target.value,"&name=",this.state.name,"&spell_type=",this.state.spell_type),
-          }, this.props.getClassQuery("".concat("%classes&id=",event.target.value,"&name=",this.state.name,"&spell_type=",this.state.spell_type)));
+          }, () => this.props.getClassQuery(this.state));
   };
 
   handleNameChange = (event) => {
 	  event.preventDefault();
           this.setState({
                   name: event.target.value,
-                  query: "".concat("%classes&id=",this.state.id,"&name=",event.target.value,"&spell_type=",this.state.spell_type),
-	  }, this.props.getClassQuery("".concat("%classes&id=",this.state.id,"&name=",event.target.value,"&spell_type=",this.state.spell_type)));
+	  }, () => this.props.getClassQuery(this.state));
   };
 
   render () {
