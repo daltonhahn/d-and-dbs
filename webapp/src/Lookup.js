@@ -252,7 +252,7 @@ class Lookup extends Component {
 	  var getAlignmentQuery = this.getAlignmentQuery;
 	  var getItemQuery = this.getItemQuery;
   return (
-    <div>
+	  <Box>
     <Box display="flex" justifyContent="center" p={1}>
 	  <CheckboxLabels boxChecked={boxChecked.bind(this)} />
     </Box>
@@ -281,7 +281,7 @@ class Lookup extends Component {
     <Box display="flex" justifyContent="center" p={1}>
       <Button onClick={() => this.props.handleQuery({tables: this.state.table_select, query: this.state.query})} variant="contained">Search</Button>
     </Box>
-    </div>
+	  </Box>
   );
   }
 }  export default withStyles( useStyles ) (Lookup);

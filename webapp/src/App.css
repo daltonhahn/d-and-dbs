@@ -7,7 +7,7 @@
 }
 
 .App th,td {
-	min-width: 200px;
+	min-width: 100px;
 	margin-left: 20px;
 	margin-right: 20px;
 }

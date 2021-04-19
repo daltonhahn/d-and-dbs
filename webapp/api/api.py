@@ -112,13 +112,18 @@ def table_join(table_obj):
 def get_headers(tables):
     mycursor = mydb.cursor(buffered=True)
     headers = list() 
-    for t in tables:
+    for i,t in enumerate(tables):
         mycursor.execute("DESC " + t)
         headers.append(mycursor.fetchall())
     cols = []
     for h in headers:
         for c in h:
-            cols.append(c[0])
+            temp_dict = dict()
+            temp_dict["Header"] = c[0]
+            temp_dict["accessor"] = c[0]
+            if not any(d["Header"] == c[0] for d in cols):
+                cols.append(temp_dict)
+
     return cols
 
 @app.route('/query', methods=["POST"])
@@ -135,14 +140,16 @@ def query():
     elif len(tables) > 0 and conds != "":
         mycursor.execute("SELECT * FROM " + ",".join(tables) + " WHERE " + conds)
 
+    columns = get_headers(tables)
     result = mycursor.fetchall()
     output = gen_output(result)
-    records = ""
-    for rec in output:
-        records = records + ",".join(rec) + "\n\n"
-    columns = get_headers(tables)
+    records = list()
+    for row in output:
+        temp_dict = dict(zip([d["Header"] for d in columns], row))
+
+        records.append(temp_dict)
     data = {
-            "columns": ",".join(columns),
+            "columns": columns,
             "records": records
     }
     return json.dumps(data)
@@ -152,9 +159,34 @@ def query():
 def update():
     mycursor = mydb.cursor(buffered=True)
     request_data = request.get_json()
-    return json.dumps({"status": "success"})
+    if request_data["data"]["table"] == "" or request_data["data"]["query"] == "":
+        return json.dumps({"status": "failure"})
 
-#### EXAMPLE INSERT OR UPDATE QUERY
-#INSERT INTO table (id, name, age) VALUES(1, "A", 19) ON DUPLICATE KEY UPDATE
-#name="A", age=19
+    table = request_data["data"]["table"]
+    mycursor.execute("DESC " + table)
+    headers = mycursor.fetchall()
+    cols = []
+    for c in headers:
+        if "_desc" not in c[0] and "_profieciency" not in c[0] and "item_type" not in c[0] and "_speed" not in c[0] and "_langs" not in c[0]:
+            cols.append(c[0])
+
+    vals = []
+    if table == "spells":
+        vals = spells.update_parse(request_data["data"]["query"])
+    else:
+        for k,v in request_data["data"]["query"].items():
+            vals.append(v)
+
+    v_string = ', '.join(f'"{w}"' for w in vals)
+    c_string = ', '.join(cols)
+    up_string = ""
+    for i,c in enumerate(cols):
+        if i != 0:
+            up_string = up_string + str(cols[i]) + "=" + '"' + str(vals[i]) + '"'
+            up_string = up_string + ", "
+
+    print("INSERT INTO " + table + " (" + c_string + ") VALUES(" + v_string + ") ON DUPLICATE KEY UPDATE " + up_string[:-2])
+    mycursor.execute("INSERT INTO " + table + " (" + c_string + ") VALUES(" + v_string + ") ON DUPLICATE KEY UPDATE " + up_string[:-2])
+
+    return json.dumps({"status": "success"})
 

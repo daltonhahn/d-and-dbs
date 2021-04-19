@@ -35,15 +35,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-class WeapUpdate extends Component {
+class WeapLookup extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			type: '',
 			id: '',
 			name: '',
+			type: '',
 			dmg: '',
-			query: '%weapons&id=&type=&dmg=&name=',
 		};
 	};
 
@@ -51,32 +50,28 @@ class WeapUpdate extends Component {
 	  event.preventDefault();
           this.setState({
                   type: event.target.value,
-                  query: "".concat("%weapons&id=",this.state.id,"&type=",event.target.value,"&dmg=",this.state.dmg,"&name=",this.state.name),
-          }, this.props.getWeaponQuery("".concat("%weapons&id=",this.state.id,"&type=",event.target.value,"&dmg=",this.state.dmg,"&name=",this.state.name)));
+          }, () => this.props.getWeaponQuery(this.state));
   };
 
   handleIDChange = (event) => {
 	  event.preventDefault();
           this.setState({
                   id: event.target.value,
-                  query: "".concat("%weapons&id=",event.target.value,"&type=",this.state.type,"&dmg=",this.state.dmg,"&name=",this.state.name),
-          }, this.props.getWeaponQuery("".concat("%weapons&id=",event.target.value,"&type=",this.state.type,"&dmg=",this.state.dmg,"&name=",this.state.name)));
+          }, () => this.props.getWeaponQuery(this.state));
   };
 
   handleNameChange = (event) => {
 	  event.preventDefault();
           this.setState({
                   name: event.target.value,
-                  query: "".concat("%weapons&id=",this.state.id,"&type=",this.state.type,"&dmg=",this.state.dmg,"&name=",event.target.value),
-          }, this.props.getWeaponQuery("".concat("%weapons&id=",this.state.id,"&type=",this.state.type,"&dmg=",this.state.dmg,"&name=",event.target.value)));
+          }, () => this.props.getWeaponQuery(this.state));
   };
 
   handleDmgChange = (event) => {
 	  event.preventDefault();
           this.setState({
                   dmg: event.target.value,
-                  query: "".concat("%weapons&id=",this.state.id,"&type=",this.state.type,"&dmg=",event.target.value,"&name=",this.state.name),
-          }, this.props.getWeaponQuery("".concat("%weapons&id=",this.state.id,"&type=",this.state.type,"&dmg=",event.target.value,"&name=",this.state.name)));
+          }, () => this.props.getWeaponQuery(this.state));
   };
 
   render () {
@@ -140,4 +135,4 @@ class WeapUpdate extends Component {
 		  </Box>
 	  );
 	  }
-}  export default withStyles( useStyles ) (WeapUpdate);
+}  export default withStyles( useStyles ) (WeapLookup);

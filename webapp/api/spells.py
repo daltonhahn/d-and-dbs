@@ -30,5 +30,37 @@ def parse(query_items):
                     classList.append("Warlock")
                 elif s_class == "checkedWizard" and query_items["classes"][s_class] == True:
                     classList.append("Wizard")
-            conds.append("spell_classes = \"" + str(", ".join(classList)) + '\"')
+            if len(classList) > 0:
+                conds.append("spell_classes LIKE \"%" + str(", ".join(classList)) + "%\"")
     return conds
+
+def update_parse(query_items):
+    vals = []
+    for k,v in query_items.items():
+        if k == "classes":
+            c_list = []
+            for s_class in v.items():
+                if s_class[0] == "checkedBard" and s_class[1] == True:
+                    c_list.append("Bard")
+                elif s_class[0] == "checkedCleric" and s_class[1] == True:
+                    c_list.append("Cleric")
+                elif s_class[0] == "checkedDruid" and s_class[1] == True:
+                    c_list.append("Druid")
+                elif s_class[0] == "checkedPaladin" and s_class[1] == True:
+                    c_list.append("Paladin")
+                elif s_class[0] == "checkedRanger" and s_class[1] == True:
+                    c_list.append("Ranger")
+                elif s_class[0] == "checkedRitualCaster" and s_class[1] == True:
+                    c_list.append("Ritual Caster")
+                elif s_class[0] == "checkedSorcerer" and s_class[1] == True:
+                    c_list.append("Sorcerer")
+                elif s_class[0] == "checkedWarlock" and s_class[1] == True:
+                    c_list.append("Warlock")
+                elif s_class[0] == "checkedWizard" and s_class[1] == True:
+                    c_list.append("Wizard")
+            temp = ",".join(c_list)
+            vals.append(temp)
+        else:
+            vals.append(v)
+
+    return vals

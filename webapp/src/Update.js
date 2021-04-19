@@ -27,6 +27,7 @@ import WeapUpdate from './WeaponsUpdate';
 import RaceUpdate from './RacesUpdate';
 import ClassUpdate from './ClassesUpdate';
 import AlignmentUpdate from './AlignmentsUpdate';
+import ItemUpdate from './ItemsUpdate';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,12 +56,8 @@ class Update extends Component {
 			checkedD: 'none',
 			checkedE: 'none',
 			checkedF: 'none',
-			char_query: '',
-			spell_query: '',
-			weapons_query: '',
-			races_query: '',
-			classes_query: '',
-			alignments_query: '',
+			checkedG: 'none',
+			table: '',
 			query: '',
 		};
 		var boxChecked = this.boxChecked.bind(this);
@@ -70,49 +67,43 @@ class Update extends Component {
 		var getRaceQuery = this.getRaceQuery.bind(this);
 		var getClassQuery = this.getClassQuery.bind(this);
 		var getAlignmentQuery = this.getAlignmentQuery.bind(this);
+		var getItemQuery = this.getItemQuery.bind(this);
 	};
-
-  forceFresh = () => {
-	  this.setState({
-		  query: ("".concat(this.state.char_query,this.state.spell_query,this.state.weapons_query,this.state.races_query,
-			this.state.classes_query,this.state.alignments_query))
-	  });
-  };
 
   getCharQuery(data) {
 	  this.setState({
-		  char_query: data,
-		  query: ''.concat(data,this.state.spell_query,this.state.weapons_query,this.state.races_query,this.state.classes_query,this.state.alignments_query)
-	  }, () => this.forceFresh());
+		  query: data,
+
+	  });
   };
   getSpellQuery(data) {
 	  this.setState({
-		  spell_query: data,
-		  query: ''.concat(this.state.char_query,data,this.state.weapons_query,this.state.races_query,this.state.classes_query,this.state.alignments_query)
+		  query: data,
 	  });
   };
   getWeaponQuery(data) {
 	  this.setState({
-		  weapons_query: data,
-		  query: ''.concat(this.state.char_query,data,this.state.weapons_query,this.state.races_query,this.state.classes_query,this.state.alignments_query)
+		  query: data,
 	  });
   };
   getRaceQuery(data) {
 	  this.setState({
-		  weapons_query: data,
-		  query: ''.concat(this.state.char_query,data,this.state.weapons_query,this.state.races_query,this.state.classes_query,this.state.alignments_query)
+		  query: data,
 	  });
   };
   getClassQuery(data) {
 	  this.setState({
-		  weapons_query: data,
-		  query: ''.concat(this.state.char_query,data,this.state.weapons_query,this.state.races_query,this.state.classes_query,this.state.alignments_query)
+		  query: data,
 	  });
   };
   getAlignmentQuery(data) {
 	  this.setState({
-		  weapons_query: data,
-		  query: ''.concat(this.state.char_query,data,this.state.weapons_query,this.state.races_query,this.state.classes_query,this.state.alignments_query)
+		  query: data,
+	  });
+  };
+  getItemQuery(data) {
+	  this.setState({
+		  query: data,
 	  });
   };
 
@@ -126,6 +117,9 @@ class Update extends Component {
 				  checkedD: "none",
 				  checkedE: "none",
 				  checkedF: "none",
+				  checkedG: "none",
+				  table: 'characters',
+				  query: '',
 			  });
 			  break;
 		  case "checkedB":
@@ -136,6 +130,9 @@ class Update extends Component {
 				  checkedD: "none",
 				  checkedE: "none",
 				  checkedF: "none",
+				  checkedG: "none",
+				  table: 'spells',
+				  query: '',
 			  });
 			  break;
 		  case "checkedC":
@@ -146,6 +143,9 @@ class Update extends Component {
 				  checkedD: "none",
 				  checkedE: "none",
 				  checkedF: "none",
+				  checkedG: "none",
+				  table: 'weapons',
+				  query: '',
 			  });
 			  break;
 		  case "checkedD":
@@ -156,6 +156,9 @@ class Update extends Component {
 				  checkedD: "flex",
 				  checkedE: "none",
 				  checkedF: "none",
+				  checkedG: "none",
+				  table: 'races',
+				  query: '',
 			  });
 			  break;
 		  case "checkedE":
@@ -166,6 +169,9 @@ class Update extends Component {
 				  checkedD: "none",
 				  checkedE: "flex",
 				  checkedF: "none",
+				  checkedG: "none",
+				  table: 'classes',
+				  query: '',
 			  });
 			  break;
 		  case "checkedF":
@@ -176,6 +182,22 @@ class Update extends Component {
 				  checkedD: "none",
 				  checkedE: "none",
 				  checkedF: "flex",
+				  checkedG: "none",
+				  table: 'alignments',
+				  query: '',
+			  });
+			  break;
+		  case "checkedG":
+			  this.setState({ 
+				  checkedA: "none",
+				  checkedB: "none",
+				  checkedC: "none",
+				  checkedD: "none",
+				  checkedE: "none",
+				  checkedF: "none",
+				  checkedG: "flex",
+				  table: 'magicitems',
+				  query: '',
 			  });
 			  break;
 		  default:
@@ -193,6 +215,7 @@ class Update extends Component {
 	  var getRaceQuery = this.getRaceQuery;
 	  var getClassQuery = this.getClassQuery;
 	  var getAlignmentQuery = this.getAlignmentQuery;
+	  var getItemQuery = this.getItemQuery;
   return (
     <div>
     <Box display="flex" justifyContent="center" p={1}>
@@ -216,8 +239,11 @@ class Update extends Component {
     <Box display={this.state.checkedF} justifyContent="center" >
 	  <AlignmentUpdate getAlignmentQuery={getAlignmentQuery.bind(this)} />
 	  </Box>
+    <Box display={this.state.checkedG} justifyContent="center" >
+	  <ItemUpdate getItemQuery={getItemQuery.bind(this)} />
+	  </Box>
     <Box display="flex" justifyContent="center" p={1}>
-      <Button onClick={() => this.props.handleUpdate(this.state.query)} variant="contained">Insert/Update</Button>
+      <Button onClick={() => this.props.handleUpdate({table: this.state.table, query: this.state.query})} variant="contained">Insert/Update</Button>
     </Box>
     </div>
   );
@@ -250,6 +276,7 @@ class RadioButtonsGroup extends Component {
         <FormControlLabel value="checkedD" control={<Radio />} label="Races" />
         <FormControlLabel value="checkedE" control={<Radio />} label="Classes" />
         <FormControlLabel value="checkedF" control={<Radio />} label="Alignments" />
+        <FormControlLabel value="checkedG" control={<Radio />} label="Magic Items" />
       </RadioGroup>
     </FormControl>
   );

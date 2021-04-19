@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-class SpellUpdate extends Component {
+class SpellLookup extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -43,141 +43,138 @@ class SpellUpdate extends Component {
 			name: '',
 			lvl: '',
 			school: '',
-			classes: [],
-			query: '%spells&id=&name=&lvl=&school=&classes=',
-			checkedBard: false,
-			checkedCleric: false,
-			checkedDruid: false,
-			checkedPaladin: false,
-			checkedRanger: false,
-			checkedRitualCaster: false,
-			checkedSorcerer: false,
-			checkedWarlock: false,
-			checkedWizard: false,
+			classes: {
+				checkedBard: false,
+				checkedCleric: false,
+				checkedDruid: false,
+				checkedPaladin: false,
+				checkedRanger: false,
+				checkedRitualCaster: false,
+				checkedSorcerer: false,
+				checkedWarlock: false,
+				checkedWizard: false,
+			},
 		};
 	};
 
   handleIDChange = (event) => {
           this.setState({
                   id: event.target.value,
-                  query: "".concat("%spells&id=",event.target.value,"&lvl=",this.state.lvl,"&school=",this.state.school,"&classes=",this.state.classes,"&name=",this.state.name),
-          }, this.props.getSpellQuery("".concat("%spells&id=",event.target.value,"&lvl=",this.state.lvl,"&school=",this.state.school,"&classes=",this.state.classes,"&name=",this.state.name)));
+          }, () => this.props.getSpellQuery(this.state));
   };
   handleNameChange = (event) => {
           this.setState({
                   name: event.target.value,
-                  query: "".concat("%spells&id=",this.state.id,"&lvl=",this.state.lvl,"&school=",this.state.school,"&classes=",this.state.classes,"&name=",event.target.value),
-          }, this.props.getSpellQuery("".concat("%spells&id=",this.state.id,"&lvl=",this.state.lvl,"&school=",this.state.school,"&classes=",this.state.classes,"&name=",event.target.value)));
+          }, () => this.props.getSpellQuery(this.state));
   };
   handleLvlChange = (event) => {
           this.setState({
                   lvl: event.target.value,
-                  query: "".concat("%spells&id=",this.state.id,"&lvl=",event.target.value,"&school=",this.state.school,"&classes=",this.state.classes,"&name=",this.state.name),
-          }, this.props.getSpellQuery("".concat("%spells&id=",this.state.id,"&lvl=",event.target.value,"&school=",this.state.school,"&classes=",this.state.classes,"&name=",this.state.name)));
+          }, () => this.props.getSpellQuery(this.state));
   };
   handleSchoolChange = (event) => {
           this.setState({
                   school: event.target.value,
-                  query: "".concat("%spells&id=",this.state.id,"&lvl=",this.state.lvl,"&school=",event.target.value,"&classes=",this.state.classes,"&name=",this.state.name),
-          }, this.props.getSpellQuery("".concat("%spells&id=",this.state.id,"&lvl=",this.state.lvl,"&school=",event.target.value,"&classes=",this.state.classes,"&name=",this.state.name)));
+          }, () => this.props.getSpellQuery(this.state));
   };
 
-  forceFresh = () => {
-	  this.props.getSpellQuery("".concat("%spells&id=",this.state.id,"&lvl=",this.state.lvl,
-		  "&school=",this.state.school,"&classes=",this.state.classes,"&name=",this.state.name));
-  }
-
   handleClassesChange = (event) => {
-	  console.log(this.state.classes);
 	  let classList = (this.state.classes);
-	  console.log(classList);
 	  switch(event.target.name) {
 		  case "checkedBard":
-			  this.setState({ checkedBard: event.target.checked, });
 			  if(event.target.checked == true){
-				  classList.push("Bard");
+				  classList["checkedBard"] = true
+				  this.setState({ classes: classList, })
 			  }
 			  else {
-				  classList = classList.filter(function(item) { return item !== "Bard" });
+				  classList["checkedBard"] = false
+				  this.setState({ classes: classList, })
 			  }
 			  break;
 		  case "checkedCleric":
-			  this.setState({ checkedCleric: event.target.checked, });
 			  if(event.target.checked == true){
-				  classList.push("Cleric");
+				  classList["checkedCleric"] = true
+				  this.setState({ classes: classList, })
 			  }
 			  else {
-				  classList = classList.filter(function(item) { return item !== "Cleric" });
+				  classList["checkedCleric"] = false
+				  this.setState({ classes: classList, })
 			  }
 			  break;
 		  case "checkedDruid":
-			  this.setState({ checkedDruid: event.target.checked, });
 			  if(event.target.checked == true){
-				  classList.push("Druid");
+				  classList["checkedDruid"] = true
+				  this.setState({ classes: classList, })
 			  }
 			  else {
-				  classList = classList.filter(function(item) { return item !== "Druid" });
+				  classList["checkedDruid"] = false
+				  this.setState({ classes: classList, })
 			  }
 			  break;
 		  case "checkedPaladin":
-			  this.setState({ checkedPaladin: event.target.checked, });
 			  if(event.target.checked == true){
-				  classList.push("Paladin");
+				  classList["checkedPaladin"] = true
+				  this.setState({ classes: classList, })
 			  }
 			  else {
-				  classList = classList.filter(function(item) { return item !== "Paladin" });
+				  classList["checkedPaladin"] = false
+				  this.setState({ classes: classList, })
 			  }
 			  break;
 		  case "checkedRanger":
-			  this.setState({ checkedRanger: event.target.checked, });
 			  if(event.target.checked == true){
-				  classList.push("Ranger");
+				  classList["checkedRanger"] = true
+				  this.setState({ classes: classList, })
 			  }
 			  else {
-				  classList = classList.filter(function(item) { return item !== "Ranger" });
+				  classList["checkedRanger"] = false
+				  this.setState({ classes: classList, })
 			  }
 			  break;
 		  case "checkedRitualCaster":
-			  this.setState({ checkedRitualCaster: event.target.checked, });
 			  if(event.target.checked == true){
-				  classList.push("Ritual Caster");
+				  classList["checkedRitualCaster"] = true
+				  this.setState({ classes: classList, })
 			  }
 			  else {
-				  classList = classList.filter(function(item) { return item !== "Ritual Caster" });
+				  classList["checkedRitualCaster"] = false
+				  this.setState({ classes: classList, })
 			  }
 			  break;
 		  case "checkedSorcerer":
-			  this.setState({ checkedSorcerer: event.target.checked, });
 			  if(event.target.checked == true){
-				  classList.push("Sorcerer");
+				  classList["checkedSorcerer"] = true
+				  this.setState({ classes: classList, })
 			  }
 			  else {
-				  classList = classList.filter(function(item) { return item !== "Sorcerer" });
+				  classList["checkedSorcerer"] = false
+				  this.setState({ classes: classList, })
 			  }
 			  break;
 		  case "checkedWarlock":
-			  this.setState({ checkedWarlock: event.target.checked, });
 			  if(event.target.checked == true){
-				  classList.push("Warlock");
+				  classList["checkedWarlock"] = true
+				  this.setState({ classes: classList, })
 			  }
 			  else {
-				  classList = classList.filter(function(item) { return item !== "Warlock" });
+				  classList["checkedWarlock"] = false
+				  this.setState({ classes: classList, })
 			  }
 			  break;
 		  case "checkedWizard":
-			  this.setState({ checkedWizard: event.target.checked, });
 			  if(event.target.checked == true){
-				  classList.push("Wizard");
+				  classList["checkedWizard"] = true
+				  this.setState({ classes: classList, })
 			  }
 			  else {
-				  classList = classList.filter(function(item) { return item !== "Wizard" });
+				  classList["checkedWizard"] = false
+				  this.setState({ classes: classList, })
 			  }
 			  break;
 	  };
 	  this.setState({
 		  classes: classList,
-		  query: "".concat("%spells&id=",this.state.id,"&lvl=",this.state.lvl,"&school=", this.state.school,"&classes=",this.state.classes.join(),"&name=",this.state.name),
-	  }, () => this.forceFresh());
+          }, () => this.props.getSpellQuery(this.state));
   };
 
 
@@ -201,6 +198,7 @@ class SpellUpdate extends Component {
           value={this.state.lvl}
           onChange={this.handleLvlChange}
         >
+          <MenuItem value={''}></MenuItem>
           <MenuItem value={0}>0</MenuItem>
           <MenuItem value={1}>1</MenuItem>
           <MenuItem value={2}>2</MenuItem>
@@ -224,6 +222,7 @@ class SpellUpdate extends Component {
           value={this.state.school}
           onChange={this.handleSchoolChange}
         >
+          <MenuItem value={''}></MenuItem>
           <MenuItem value={"Evocation"}>Evocation</MenuItem>
           <MenuItem value={"Conjuration"}>Conjuration</MenuItem>
           <MenuItem value={"Abjuration"}>Abjuration</MenuItem>
@@ -286,4 +285,4 @@ class SpellUpdate extends Component {
 		  </Box>
 	  );
 	  }
-}  export default withStyles( useStyles ) (SpellUpdate);
+}  export default withStyles( useStyles ) (SpellLookup);

@@ -41,7 +41,6 @@ class RaceUpdate extends Component {
 		this.state = {
 			id: '',
 			name: '',
-			query: '%races&id=&name=',
 		};
 	};
 
@@ -49,16 +48,14 @@ class RaceUpdate extends Component {
 	  event.preventDefault();
           this.setState({
                   name: event.target.value,
-                  query: "".concat("%races&id=",this.state.id,"&name=",event.target.value),
-          }, this.props.getRaceQuery("".concat("%races&id=",this.state.id,"&name=",event.target.value)));
+          }, () => this.props.getRaceQuery(this.state));
   };
 
   handleIDChange = (event) => {
 	  event.preventDefault();
           this.setState({
                   id: event.target.value,
-                  query: "".concat("%races&id=",event.target.value,"&name=",this.state.name),
-          }, this.props.getRaceQuery("".concat("%races&id=",event.target.value,"&name=",this.state.name)));
+          }, () => this.props.getRaceQuery(this.state));
   };
 
   render () {

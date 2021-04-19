@@ -45,8 +45,8 @@ function TabPanel(props) {
 
 TabPanel.propTypes = {
   children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
+  index: PropTypes.any,
+  value: PropTypes.any,
 };
 
 function a11yProps(index) {
@@ -81,6 +81,7 @@ class SimpleTabs extends Component {
 			Tabvalue: 0,
 		};
 		var handleQuery = this.handleQuery.bind(this);
+		var handleUpdate = this.handleUpdate.bind(this);
 	};
 
   handleValueChange = (event, value) => {
@@ -108,7 +109,7 @@ class SimpleTabs extends Component {
 	  var handleUpdate = this.handleUpdate;
 	  let value = Tabvalue;
   return (
-    <div className={classes.root}>
+    <Box className={classes.root}>
       <AppBar position="static">
         <Tabs className={classes.tabGroup} value={value} onChange={this.handleValueChange} aria-label="simple tabs example">
           <Tab label="Home" {...a11yProps(0)} />
@@ -127,7 +128,7 @@ class SimpleTabs extends Component {
 	  <Update handleUpdate={handleUpdate.bind(this)}>
 	  </Update>
       </TabPanel>}
-    </div>
+    </Box>
   );
   }
 }

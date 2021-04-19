@@ -35,35 +35,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-class ClassUpdate extends Component {
+class ItemUpdate extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			id: '',
 			name: '',
-			spell_type: '',
+			rarity: '',
 		};
 	};
 
-  handleTypeChange = (event) => {
-	  event.preventDefault();
+  handleRarityChange = (event) => {
           this.setState({
-                  spell_type: event.target.value,
-          }, () => this.props.getClassQuery(this.state));
+                  rarity: event.target.value,
+          }, () => this.props.getItemQuery(this.state));
   };
 
   handleIDChange = (event) => {
-	  event.preventDefault();
           this.setState({
                   id: event.target.value,
-          }, () => this.props.getClassQuery(this.state));
+          }, () => this.props.getItemQuery(this.state));
   };
 
   handleNameChange = (event) => {
-	  event.preventDefault();
           this.setState({
                   name: event.target.value,
-          }, () => this.props.getClassQuery(this.state));
+	  }, () => this.props.getItemQuery(this.state));
   };
 
   render () {
@@ -73,35 +70,37 @@ class ClassUpdate extends Component {
           <Box  p={1}>
           <br></br>
             <form className={classes.root} noValidate autoComplete="off">
-              <Input placeholder="Class ID (Optional)" inputProps={{ 'aria-label': 'description' }} value={this.state.id} onChange={this.handleIDChange}/>
+              <Input placeholder="Item ID (Optional)" inputProps={{ 'aria-label': 'description' }} value={this.state.id} onChange={this.handleIDChange}/>
             </form>
           </Box>
-          <Box  p={1}>
+          <Box p={1}>
           <br></br>
-            <form className={classes.root} noValidate autoComplete="off">
-              <Input placeholder="Class Name" inputProps={{ 'aria-label': 'description' }} value={this.state.name} onChange={this.handleNameChange}/>
+            <form className={this.props.classes.root} noValidate autoComplete="off">
+              <Input placeholder="Item Name" inputProps={{ 'aria-label': 'description' }} value={this.state.name} onChange={this.handleNameChange} />
             </form>
           </Box>
-      <Box p={3}>
+	    <Box p={3}>
       <FormControl className={this.props.classes.formControl}>
         <InputLabel id="demo-simple-select-label"></InputLabel>
         <Select
-          name="dmgselect"
+          name="rarityselect"
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={this.state.spell_type}
-          onChange={this.handleTypeChange}
+          value={this.state.rarity}
+          onChange={this.handleRarityChange}
         >
           <MenuItem value={''}></MenuItem>
-          <MenuItem value={"None"}>None</MenuItem>
-          <MenuItem value={"Charisma"}>Charisma</MenuItem>
-          <MenuItem value={"Wisdom"}>Wisdom</MenuItem>
-          <MenuItem value={"Intelligence"}>Intelligence</MenuItem>
+          <MenuItem value={"uncommon"}>Uncommon</MenuItem>
+          <MenuItem value={"rare"}>Rare</MenuItem>
+          <MenuItem value={"very rare"}>Very Rare</MenuItem>
+          <MenuItem value={"legendary"}>Legendary</MenuItem>
+          <MenuItem value={"varies"}>Varies</MenuItem>
+          <MenuItem value={"very rare or legendary"}>Very Rare or Legendary</MenuItem>
         </Select>
-        <FormHelperText>Class Spell Type</FormHelperText>
+        <FormHelperText>Item Rarity</FormHelperText>
       </FormControl>
           </Box>
-		  </Box>
+	  </Box>
 	  );
 	  }
-}  export default withStyles( useStyles ) (ClassUpdate);
+}  export default withStyles( useStyles ) (ItemUpdate);

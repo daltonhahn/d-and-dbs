@@ -39,35 +39,27 @@ class CharUpdate extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			lvl: '',
 			id: '',
 			name: '',
-			query: '%characters&id=&lvl=&name=',
+			lvl: '',
 		};
 	};
-
-  handleLvlChange = (event) => {
-	  event.preventDefault();
+    handleLvlChange = (event) => {
           this.setState({
                   lvl: event.target.value,
-                  query: "".concat("%characters&id=",this.state.id,"&lvl=",event.target.value,"&name=",this.state.name),
-          }, this.props.getCharQuery("".concat("%characters&id=",this.state.id,"&lvl=",event.target.value,"&name=",this.state.name)));
+          }, () => this.props.getCharQuery(this.state));
   };
 
   handleIDChange = (event) => {
-	  event.preventDefault();
           this.setState({
                   id: event.target.value,
-                  query: "".concat("%characters&id=",event.target.value,"&lvl=",this.state.lvl,"&name=",this.state.name),
-          }, this.props.getCharQuery("".concat("%characters&id=",event.target.value,"&lvl=",this.state.lvl,"&name=",this.state.name)));
+          }, () => this.props.getCharQuery(this.state));
   };
 
   handleNameChange = (event) => {
-	  event.preventDefault();
           this.setState({
                   name: event.target.value,
-                  query: "".concat("%characters&id=",this.state.id,"&lvl=",this.state.lvl,"&name=",event.target.value),
-	  }, this.props.getCharQuery("".concat("%characters&id=",this.state.id,"&lvl=",this.state.lvl,"&name=",event.target.value)));
+          }, () => this.props.getCharQuery(this.state));
   };
 
   render () {
