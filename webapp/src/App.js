@@ -8,15 +8,27 @@ import Welcome from './Welcome';
 import Filters from './Filters';
 import SimpleTabs from './SimpleTabs';
 import CssBaseline from '@material-ui/core/CssBaseline'
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 class App extends Component {
   constructor(props){
 	  super(props)
+	  if(!cookies.get("populateOutput")) {
+		  var timestamp = new Date().getTime();
+		  var expire = timestamp + (60 * 60 * 24 * 1000 * 1);
+		  cookies.set('populateOutput', {welcome: 'flex', data: [], columns: []}, { expires: new Date(expire) });
+	  }
+	  else {
+		  var oldOutput = cookies.get("populateOutput");
+		  this.setState({welcome: "none", data: oldOutput["data"], columns: oldOutput["columns"]});
+	  }
 	  this.state = { 
-		  welcome_displayed: "flex",
+		  welcome_displayed: cookies.get("populateOutput")["welcome"],
 		  //filter_displayed: "none",
-		  data: [],
-		  columns:[],
+		  data: cookies.get("populateOutput")["data"],
+		  columns: cookies.get("populateOutput")["columns"],
 	  }
 	  var sendQuery = this.sendQuery.bind(this);
 	  var sendUpdate = this.sendUpdate.bind(this);
@@ -40,7 +52,7 @@ class App extends Component {
 		  body: JSON.stringify({
 			  data
 		  })
-		}).then(res => res.json()).then(data => { this.setState({data: data.records, columns: data.columns});
+		}).then(res => res.json()).then(data => { cookies.set('populateOutput', {welcome: 'none', columns: data.columns, data: data.records}); this.setState({data: data.records, columns: data.columns}); 
   });
 	  this.updateWelcome();
 	  //this.updateFilters(this.state.columns);
@@ -56,8 +68,8 @@ class App extends Component {
 		body: JSON.stringify({
 			data
 		})
-		});
-	  console.log(data);
+		}).then(res => res.json()).then(data => { cookies.set('populateOutput', {welcome: 'none', columns: data.columns, data: data.records}); this.setState({data: data.records, columns: data.columns}); 
+  });
 	  this.updateWelcome();
   };
 

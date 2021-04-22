@@ -20,7 +20,8 @@ mydb = mysql.connector.connect(
     password=os.environ.get("password"),
     database=os.environ.get("database"),
     charset=os.environ.get("charset"),
-    port="3306"
+    port="3306",
+    autocommit=True
 )
 app = Flask(__name__)
 
@@ -188,5 +189,8 @@ def update():
     print("INSERT INTO " + table + " (" + c_string + ") VALUES(" + v_string + ") ON DUPLICATE KEY UPDATE " + up_string[:-2])
     mycursor.execute("INSERT INTO " + table + " (" + c_string + ") VALUES(" + v_string + ") ON DUPLICATE KEY UPDATE " + up_string[:-2])
 
-    return json.dumps({"status": "success"})
+    return json.dumps({
+        "columns":[{"Header":"status","accessor":"status"}],
+        "records":[{"status":"SUCCESS"}],
+        })
 
